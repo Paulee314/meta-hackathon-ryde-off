@@ -45,12 +45,18 @@ class Chat(unittest.TestCase):
         self.assertEqual((path, base, key), ("/chat/completions", meta.BASETEN_URL, "BASETEN_API_KEY"))
         self.assertEqual(payload["reasoning_effort"], "low")
 
-    def test_meta_call_unchanged(self):
+    def test_meta_call_takes_reasoning_effort(self):
+        # Meta's API honors it too (Nov 4: "low" made the cash request about 4x faster)
         self.fake("hello")
         self.assertEqual(meta.chat([{"role": "user", "content": "x"}], reasoning_effort="low"), "hello")
         path, payload, base, key = self.sent[0]
         self.assertEqual((base, key), (meta.BASE_URL, "META_API_KEY"))
-        self.assertNotIn("reasoning_effort", payload)   # Meta's API isn't sent Baseten's options
+        self.assertEqual(payload["reasoning_effort"], "low")
+
+    def test_no_reasoning_effort_unless_asked(self):
+        self.fake("hello")
+        meta.chat([{"role": "user", "content": "x"}])
+        self.assertNotIn("reasoning_effort", self.sent[0][1])
 
 
 if __name__ == "__main__":
