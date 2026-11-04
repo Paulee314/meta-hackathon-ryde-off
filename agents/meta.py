@@ -124,8 +124,10 @@ def chat(messages: List[Dict[str, Any]], model: str = CHAT_MODEL, temperature: f
     separate field (reasoning_content), so the answer here is only the final content."""
     base, key_name = _route(model)
     payload: Dict[str, Any] = {"model": model, "messages": messages, "temperature": temperature}
-    if reasoning_effort and base == BASETEN_URL:
-        payload["reasoning_effort"] = reasoning_effort   # low | medium | high | xhigh (Baseten's default)
+    if reasoning_effort:
+        # Baseten: low | medium | high | xhigh (default). Meta's API takes it too (Nov 4: "low" cut the
+        # car-wash request from 2,064 reasoning tokens and 18.6 s to 463 and 4.1 s).
+        payload["reasoning_effort"] = reasoning_effort
     start = time.time()
     body = _post_json("/chat/completions", payload, timeout=300 if base == BASETEN_URL else 180, base=base,
                       key_name=key_name)

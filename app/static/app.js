@@ -551,6 +551,22 @@ function showResult(heard, res, spoken) {
     nodes.push(el('div', { class: 'actions' }, el('div', { class: 'two' },
       el('button', { type: 'button', class: 'btn', text: 'Undo', onclick: () => undoEntry(res.entry_id) }),
       el('button', { type: 'button', class: 'btn primary', text: 'Done', onclick: closeSheet }))));
+  } else if (res.type === 'choose') {
+    // cash with no clear business: the driver places it
+    const pick = async (choice) => {
+      try {
+        const r = await api('/api/entries/pending', { method: 'POST', body: JSON.stringify({ choice }) });
+        renderHome(r.home);
+        if (r.result.type === 'kept_out') { toast('Kept out of the business books'); closeSheet(); }
+        else showResult(heard, r.result, spoken);
+      } catch (e) { toast(e.message); }
+    };
+    nodes.push(el('span', { class: 'pill', text: res.meta }), title(res.title), el('div', { class: 'big', text: res.amount }));
+    if (res.assumption) nodes.push(el('div', { class: 'explain', text: res.assumption }));
+    nodes.push(el('p', { text: 'Was this for your driving, your Turo cars, or personal?' }),
+      el('span', { class: 'muted', text: 'Business costs go on your Schedule C. Personal stays out of the books.' }));
+    const btn = (choice, label) => el('button', { type: 'button', class: 'btn tall' + (res.suggested === choice ? ' primary' : ''), text: label, onclick: () => pick(choice) });
+    nodes.push(el('div', { class: 'actions' }, el('div', { class: 'two' }, btn('rideshare', 'Rideshare'), btn('turo', 'Turo')), btn('personal', 'Personal')));
   } else if (res.type === 'question') {
     nodes.push(title(res.text), el('p', { text: 'Hold the cloud and answer, or type it.' }),
       el('div', { class: 'actions' }, el('button', { type: 'button', class: 'btn primary', text: 'Type the answer', onclick: () => { if (!wide.matches) closeSheet(); openTypebar(); } })));

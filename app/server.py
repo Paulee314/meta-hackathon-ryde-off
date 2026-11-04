@@ -35,7 +35,7 @@ from agents.segment import cut_all, find_receipts, read_all
 from agents.voice import KEYWORDS, tidy_transcript
 from app import reports
 from app import state as st
-from app.assistant import explain, handle
+from app.assistant import book, explain, handle
 from app.books import Books
 from app.limits import Budget, RateLimit
 from ingest import bank_feed
@@ -256,6 +256,32 @@ def _respond(request: Request, text: str, spoken: bool) -> Dict:
     if result["type"] == "logged":
         store(request).update(lambda s: s["entries"].append(result["entry"]))
         result["entry_id"] = result.pop("entry")["id"]
+    elif result["type"] == "choose":   # cash the driver must place: kept until they pick
+        pending = result.pop("pending")
+        store(request).update(lambda s: s.__setitem__("pending_cash", pending))
+    return {"result": result, "home": books(request).home()}
+
+
+@app.post("/api/entries/pending")
+def place_pending(request: Request, body: Dict = Body(...)):
+    """The driver's answer to a cash card: rideshare or Turo books it; personal keeps it out."""
+    choice = body.get("choice")
+    if choice not in ("rideshare", "turo", "personal"):
+        raise HTTPException(400, "Pick rideshare, Turo or personal.")
+    pending = store(request).load().get("pending_cash")
+    if not pending:
+        raise HTTPException(404, "That cash note was already answered.")
+    if choice == "personal":
+        store(request).update(lambda s: s.__setitem__("pending_cash", None))
+        return {"result": {"type": "kept_out"}, "home": books(request).home()}
+    result = book(pending["parsed"], choice, pending.get("transcript", ""), bool(pending.get("spoken")))
+    entry = result.pop("entry")
+
+    def change(s):
+        s["entries"].append(entry)
+        s["pending_cash"] = None
+    store(request).update(change)
+    result["entry_id"] = entry["id"]
     return {"result": result, "home": books(request).home()}
 
 

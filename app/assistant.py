@@ -36,8 +36,10 @@ Return only JSON, no prose:
     "hours": [first hour, last hour] in 24-hour time or null}},
  "expense": null, or for "log": {{"date": "YYYY-MM-DD" (resolve words like "yesterday" against today),
     "amount": number, "payee": string, "description": short string,
-    "business_line": "rideshare" | "turo" | "personal" | "unclear",
-    "schedule_c_line": "<line number> <line name>" such as "9 Car and truck expenses", or null if personal,
+    "business_line": "rideshare" | "turo" | "personal" | "unclear" ("unclear" unless the driver said what it was
+    for: driving, riders, Uber or Lyft for rideshare; a Turo car or guest for Turo; the driver then picks on a card),
+    "schedule_c_line": "<line number> <line name>" such as "9 Car and truck expenses": the line it would go on as a
+    business cost, even when business_line is "unclear" or "personal",
     "assumption": one short sentence naming any reading you made, or null,
     "question": one short question if the amount or purpose is missing, or null}},
  "answer": null, or for "question" and "other": {{"headline": the key figure or phrase, at most 6 words,
@@ -60,7 +62,8 @@ def handle(text: str, books: Books, spoken: bool) -> Dict:
     today = books.today
     prompt = PROMPT.format(how="said" if spoken else "typed", text=text.strip(), today=today.isoformat(),
                            weekday=today.strftime("%A"), books=json.dumps(books.context(), default=str))
-    out = chat_json([{"role": "user", "content": prompt}])
+    # low reasoning: the reply comes in about 4 s instead of about 18 (the books' numbers are computed in code anyway)
+    out = chat_json([{"role": "user", "content": prompt}], reasoning_effort="low")
     intent = out.get("intent")
     if intent == "log" and out.get("expense"):
         return _logged(out["expense"], text, spoken, today)
@@ -90,8 +93,18 @@ def _logged(expense: Dict, text: str, spoken: bool, today: date) -> Dict:
               "assumption": expense.get("assumption"), "question": None}
     line = parsed["business_line"]
     if line not in ("rideshare", "turo"):
-        return {"type": "noted", "headline": money(amount), "text": f"{parsed['description']}: kept out of the business books"
-                + (" as personal." if line == "personal" else ". Tell me if it was for rideshare or Turo.")}
+        # the driver decides: a card with Rideshare, Turo and Personal (Paul, Nov 4)
+        return {"type": "choose", "pending": {"parsed": parsed, "transcript": text, "spoken": spoken},
+                "title": parsed["description"], "amount": money(amount),
+                "meta": f"Cash, {short_date(parsed['date'])}", "suggested": "personal" if line == "personal" else None,
+                "assumption": parsed["assumption"]}
+    return book(parsed, line, text, spoken)
+
+
+def book(parsed: Dict, line: str, text: str, spoken: bool) -> Dict:
+    """A cash entry on the rideshare or Turo books."""
+    parsed = {**parsed, "business_line": line, "schedule_c_line": parsed.get("schedule_c_line") or "27a Other expenses"}
+    amount = Decimal(str(parsed["amount"])).quantize(Decimal("0.01"))
     entry = {"id": f"e{int(time.time() * 1000)}", "parsed": parsed, "transcript": text, "spoken": spoken,
              "at": time.strftime("%Y-%m-%dT%H:%M:%S")}
     sch = parsed["schedule_c_line"] or ""
