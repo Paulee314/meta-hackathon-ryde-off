@@ -164,6 +164,9 @@ def pull(month_dir, wait: float = SYNC_WAIT, post: Callable[[str, Dict], Dict] =
     if not accounts:
         raise BankFeedError("This month has no bank or card exports to load into the test bank.")
     config = custom_user(accounts)
+    # Plaid leaves out rows posted after today; every row posted before today must come back
+    today = datetime.now(timezone.utc).date().isoformat()
+    expected = sum(1 for a in accounts for t in a["transactions"] if t["date_posted"] < today)
     started = time.time()
     public = post("/sandbox/public_token/create", {
         "institution_id": INSTITUTION[0], "initial_products": ["transactions"],
@@ -184,13 +187,15 @@ def pull(month_dir, wait: float = SYNC_WAIT, post: Callable[[str, Dict], Dict] =
             status = page.get("transactions_update_status")
             if page.get("has_more"):
                 continue
-            # Plaid can mark the history complete on the call that brings only the last 30 days; the older
-            # rows come on the next call (seen Nov 3: Oct 2-3 arrived one call later). So stop at the first
-            # quiet page once the history is complete.
-            if not changed and (status == "HISTORICAL_UPDATE_COMPLETE" or (status is None and seen)):
+            # Plaid can say the history is complete before the rows arrive: on Nov 3 the Oct 2-3 rows came one
+            # call after "complete", and on the hosted app "complete" once came with no rows at all. So stop only
+            # at a quiet page, once the history is complete and every row posted before today is in.
+            complete = status == "HISTORICAL_UPDATE_COMPLETE" or (status is None and seen)
+            if complete and not changed and len(seen) >= expected:
                 break
             if time.time() > deadline:
-                raise BankFeedError(f"Plaid's test bank was still loading after {wait:.0f} seconds ({status}). Try again.")
+                raise BankFeedError(f"Plaid's test bank had sent {len(seen)} of {expected} rows after {wait:.0f} "
+                                    f"seconds ({status}). Try again.")
             sleep(1.5)
         balances = post("/accounts/get", {"access_token": access})["accounts"]
     finally:

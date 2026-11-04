@@ -76,9 +76,11 @@ class WhatTheTestBankHolds(unittest.TestCase):
 class FakePlaid:
     """Stands in for Plaid: answers the five calls a pull makes, from the recorded pull."""
 
-    def __init__(self, loading_rounds=1, fail_on=None, late_history=False):
+    def __init__(self, loading_rounds=1, fail_on=None, late_history=False, early_complete=False, short=0):
         self.calls, self.loading, self.fail_on, self.syncs = [], loading_rounds, fail_on, 0
-        self.late_history = late_history   # Plaid's way: "complete" arrives with the recent rows, the rest a call later
+        self.late_history = late_history       # "complete" arrives with the recent rows, the rest a call later
+        self.early_complete = early_complete   # "complete" first arrives on a page with no rows at all
+        self.short = short                     # leave out this many rows for good
 
     def __call__(self, path, payload):
         self.calls.append((path, payload))
@@ -94,8 +96,9 @@ class FakePlaid:
                 return {"added": [], "modified": [], "removed": [], "has_more": False, "next_cursor": "",
                         "transactions_update_status": "NOT_READY"}
             rows = [{**t, "personal_finance_category": {"detailed": t["category"]}} for t in FEED["transactions"]]
+            rows = rows[self.short:]
             half = len(rows) // 2
-            n = self.syncs - self.loading   # 1: first page with data, 2: the rest, then quiet pages
+            n = self.syncs - self.loading - (1 if self.early_complete else 0)   # 1: first rows, 2: the rest, then quiet
             page = {"added": [], "modified": [], "removed": [], "has_more": False, "next_cursor": f"c{self.syncs}",
                     "transactions_update_status": "HISTORICAL_UPDATE_COMPLETE"}
             if n == 1:
@@ -128,6 +131,16 @@ class ThePull(unittest.TestCase):
         feed = bank_feed.pull(MONTH, post=fake, sleep=lambda s: None)
         self.assertEqual(len(feed["transactions"]), len(FEED["transactions"]))
         self.assertEqual(min(t["date"] for t in feed["transactions"]), min(t["date"] for t in FEED["transactions"]))
+
+    def test_complete_with_no_rows_is_not_the_end(self):
+        # hosted app, Nov 3: the first "complete" page held no rows
+        feed = bank_feed.pull(MONTH, post=FakePlaid(early_complete=True), sleep=lambda s: None)
+        self.assertEqual(len(feed["transactions"]), len(FEED["transactions"]))
+
+    def test_a_short_bank_is_an_error_not_a_short_month(self):
+        with self.assertRaises(bank_feed.BankFeedError) as e:
+            bank_feed.pull(MONTH, wait=0, post=FakePlaid(loading_rounds=0, short=3), sleep=lambda s: None)
+        self.assertIn("55 of 58 rows", str(e.exception))
 
     def test_signs_in_as_the_custom_user_at_a_sandbox_bank(self):
         fake = FakePlaid()
