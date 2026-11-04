@@ -53,7 +53,9 @@ Weeks run Monday to Sunday; when the current week isn't over, say "so far"."""
 EXPLAIN = """You help a gig driver review their books. Explain this review item in 2 or 3 short sentences of plain
 words: what happened, and what each choice does to their books and taxes. Be accurate about US tax rules for
 self-employed drivers: if a choice would not hold up (meals while driving locally are not deductible, for example),
-say so plainly. No jargon, no greeting.
+say so plainly. Rides and rentals count as income when they are earned, whether or not the payout reached the bank,
+so a payout that never arrived is money the platform still owes the driver, not income left untaxed. No jargon, no
+greeting.
 
 Item:
 {item}"""
@@ -117,4 +119,4 @@ def book(parsed: Dict, line: str, text: str, spoken: bool) -> Dict:
 
 def explain(item: Dict) -> str:
     keep = {k: item[k] for k in ("tag", "title", "body", "rows", "suggestion", "choices", "found_by") if k in item}
-    return chat([{"role": "user", "content": EXPLAIN.format(item=json.dumps(keep))}]).strip()
+    return chat([{"role": "user", "content": EXPLAIN.format(item=json.dumps(keep))}], reasoning_effort="low").strip()
