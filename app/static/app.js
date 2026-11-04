@@ -494,6 +494,24 @@ function pileNodes(pile, stage, src) {
     el('button', { type: 'button', class: 'btn', text: wide.matches ? 'Upload a new photo' : 'Take a new photo', onclick: () => photoInput.click() })));
   return nodes;
 }
+// A phone photo is 4032px and several MB; SAM reads the 3000px sample perfectly, so send that
+// size and spare the upload on a cell connection.
+async function shrinkPhoto(file, max = 3000) {
+  try {
+    const bmp = await createImageBitmap(file, { imageOrientation: 'from-image' });
+    const scale = Math.min(1, max / Math.max(bmp.width, bmp.height));
+    if (scale === 1 && file.size < 2.5e6) { bmp.close(); return file; }
+    const c = document.createElement('canvas');
+    c.width = Math.round(bmp.width * scale); c.height = Math.round(bmp.height * scale);
+    c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+    bmp.close();
+    const blob = await new Promise((res) => c.toBlob(res, 'image/jpeg', 0.88));
+    return blob && blob.size < file.size ? blob : file;
+  } catch (e) {
+    return file;
+  }
+}
+
 let pileBusy = false;
 async function snapPile(file) {
   if (pileBusy) return;
@@ -502,7 +520,7 @@ async function snapPile(file) {
   openSheet(pileNodes(null, 'finding', preview));
   try {
     const found = await api('/api/receipts/photo', file
-      ? { method: 'POST', body: file }
+      ? { method: 'POST', body: await shrinkPhoto(file) }
       : { method: 'POST', body: JSON.stringify({ sample: true }) });
     openSheet(pileNodes(found.pile, 'reading', preview));
     const done = await api('/api/receipts/read', { method: 'POST' });

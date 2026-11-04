@@ -116,7 +116,10 @@ def _slug(extracted: Dict, fallback: str) -> str:
 
 
 def read_crop(path: Path) -> Dict:
-    return chat_json([{"role": "user", "content": [{"type": "text", "text": PROMPT}, image_part(path)]}])
+    # Low reasoning: on the five sample slips it reads every field the same as the default
+    # (dates, merchants, totals, tax, line counts) in about 60% of the time.
+    return chat_json([{"role": "user", "content": [{"type": "text", "text": PROMPT}, image_part(path)]}],
+                     reasoning_effort="low")
 
 
 def find_receipts(photo: Path, find: Callable[[Path, str], str] = segment) -> List[Dict]:
