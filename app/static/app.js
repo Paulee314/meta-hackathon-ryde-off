@@ -170,6 +170,7 @@ function openSheet(nodes) {
 }
 function closeSheet() {
   const s = $('sheet');
+  answerContext = null;
   if (s.hidden) return;
   s.classList.add('closing');
   document.body.classList.remove('panel-open');
@@ -518,13 +519,17 @@ function showSaid(text, label) {
 }
 function hideSaid() { $('said').hidden = true; }
 
+// When Muse Spark asked a question ("How much was it?"), the answer goes with what was said before it.
+let answerContext = null;
 async function ask(text, spoken) {
   if (busy) return;
   busy = true;
+  const full = answerContext ? `${answerContext} ${text}` : text;
+  answerContext = null;
   showSaid(text, 'Muse Spark is checking your books');
   app.classList.add('thinking');
   try {
-    const r = await api('/api/ask', { method: 'POST', body: JSON.stringify({ text, spoken: !!spoken }) });
+    const r = await api('/api/ask', { method: 'POST', body: JSON.stringify({ text: full, spoken: !!spoken }) });
     renderHome(r.home);
     suggestionIndex += 1;
     showResult(r.heard, r.result, spoken);
@@ -568,8 +573,24 @@ function showResult(heard, res, spoken) {
     const btn = (choice, label) => el('button', { type: 'button', class: 'btn tall' + (res.suggested === choice ? ' primary' : ''), text: label, onclick: () => pick(choice) });
     nodes.push(el('div', { class: 'actions' }, el('div', { class: 'two' }, btn('rideshare', 'Rideshare'), btn('turo', 'Turo')), btn('personal', 'Personal')));
   } else if (res.type === 'question') {
-    nodes.push(title(res.text), el('p', { text: 'Hold the cloud and answer, or type it.' }),
-      el('div', { class: 'actions' }, el('button', { type: 'button', class: 'btn primary', text: 'Type the answer', onclick: () => { if (!wide.matches) closeSheet(); openTypebar(); } })));
+    // The sheet covers the cloud on a phone, so the card has its own hold-to-talk button.
+    const hold = el('button', { type: 'button', class: 'btn primary hold-btn', text: 'Hold to answer' });
+    hold.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0) return;
+      e.preventDefault();
+      try { hold.setPointerCapture(e.pointerId); } catch (_) { /* fine */ }
+      answerContext = heard;
+      hold.textContent = 'Listening. Let go when you’re done.';
+      holding = true;
+      startListening();
+    });
+    const letGo = () => { hold.textContent = 'Hold to answer'; release(); };
+    hold.addEventListener('pointerup', letGo);
+    hold.addEventListener('pointercancel', () => { hold.textContent = 'Hold to answer'; if (!holding) return; holding = false; if (session) { session = null; rec.cancel(); app.classList.remove('listening'); hideSaid(); } });
+    hold.addEventListener('contextmenu', (e) => e.preventDefault());
+    nodes.push(title(res.text), el('p', { text: 'Hold the button and answer, or type it.' }),
+      el('div', { class: 'actions' }, hold,
+        el('button', { type: 'button', class: 'btn', text: 'Type the answer', onclick: () => { if (!wide.matches) closeSheet(); answerContext = heard; openTypebar(); } })));
   } else if (res.type === 'rule') {
     nodes.push(el('span', { class: 'pill', text: res.verdict }), title(res.headline),
       el('div', { class: 'big', text: res.amount }), el('p', { text: res.text }), rows(res.rows),
