@@ -41,7 +41,8 @@ Return only JSON, no prose:
     "schedule_c_line": "<line number> <line name>" such as "9 Car and truck expenses": the line it would go on as a
     business cost, even when business_line is "unclear" or "personal",
     "assumption": one short sentence naming any reading you made, or null,
-    "question": one short question if the amount or purpose is missing, or null}},
+    "question": one short question only if the amount is missing or unreadable, or null (never ask what it was
+    for: the app asks that with buttons)}},
  "answer": null, or for "question" and "other": {{"headline": the key figure or phrase, at most 6 words,
     "text": 1 to 3 short sentences in plain words, using only BOOKS; if BOOKS can't answer, say what is missing,
     "followups": up to 2 short questions the driver might ask next, worded as the driver would ask them,
@@ -81,8 +82,8 @@ def _logged(expense: Dict, text: str, spoken: bool, today: date) -> Dict:
         amount = None
     if amount is None or amount <= 0:
         return {"type": "question", "text": expense.get("question") or "How much was it?"}
-    if expense.get("question"):
-        return {"type": "question", "text": expense["question"]}
+    if expense.get("question") and expense.get("business_line") in ("rideshare", "turo", "personal"):
+        return {"type": "question", "text": expense["question"]}   # what it was for is asked with buttons below
     try:
         when = date.fromisoformat(str(expense.get("date")))
     except ValueError:

@@ -532,7 +532,9 @@ function showSaid(text, label) {
   else t.replaceChildren(el('span', { class: 'dots', 'aria-label': 'Working' }, el('span'), el('span'), el('span')));
   $('saidLabel').textContent = label || '';
 }
-function hideSaid() { $('said').hidden = true; }
+function hideSaid() { $('said').hidden = true; setHint(); }
+// While the microphone starts and listens, the words under the cloud say so (Nov 4: the bubble at the top was in the way).
+function setHint(text) { $('cloudHint').textContent = text || (wide.matches ? 'Hold the cloud, or hold Space, to talk' : 'Hold the cloud to talk'); }
 
 // When Muse Spark asked a question ("How much was it?"), the answer goes with what was said before it.
 let answerContext = null;
@@ -642,23 +644,43 @@ class Recorder {
       err.name = window.isSecureContext ? 'NotFoundError' : 'InsecureContext';
       throw err;
     }
-    const Ctx = window.AudioContext || window.webkitAudioContext;
-    this.ctx = new Ctx();
+    // The microphone stays open between holds (Nov 4: opening it on every hold was slow on an iPhone and
+    // sometimes failed), and closes when the page is hidden or after two quiet minutes.
+    clearTimeout(this.idle);
+    if (!this.ctx || this.ctx.state === 'closed') {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      this.ctx = new Ctx();
+    }
     const resumed = this.ctx.resume();
-    try {
-      this.stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
-    } catch (e) { this.ctx.close(); throw e; }
+    const live = this.stream && this.stream.getAudioTracks().some((t) => t.readyState === 'live');
+    if (!live) {
+      try {
+        this.stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+      } catch (e) { this.release(); throw e; }
+      if (!this.ctx) {   // given up on while the browser was asking (the 6-second limit)
+        this.stream.getTracks().forEach((t) => t.stop());
+        this.stream = null;
+        throw Object.assign(new Error('mic gave up'), { name: 'Timeout' });
+      }
+      this.source = this.ctx.createMediaStreamSource(this.stream);
+      this.analyser = this.ctx.createAnalyser();
+      this.analyser.fftSize = 512;
+      this.source.connect(this.analyser);
+    }
     await resumed;
     this.chunks = [];
-    this.source = this.ctx.createMediaStreamSource(this.stream);
-    this.analyser = this.ctx.createAnalyser();
-    this.analyser.fftSize = 512;
     this.proc = this.ctx.createScriptProcessor(4096, 1, 1);
     this.proc.onaudioprocess = (e) => { if (this.active) this.chunks.push(new Float32Array(e.inputBuffer.getChannelData(0))); };
-    this.source.connect(this.analyser);
     this.source.connect(this.proc);
     this.proc.connect(this.ctx.destination);
     this.active = true;
+  }
+  release() {
+    clearTimeout(this.idle);
+    this.active = false;
+    if (this.stream) this.stream.getTracks().forEach((t) => t.stop());
+    if (this.ctx && this.ctx.state !== 'closed') this.ctx.close();
+    this.ctx = this.stream = this.source = this.analyser = this.proc = null;
   }
   level() {
     if (!this.analyser) return 0;
@@ -670,10 +692,11 @@ class Recorder {
   }
   _teardown() {
     this.active = false;
-    try { this.proc.disconnect(); this.source.disconnect(); } catch (_) { /* already gone */ }
-    if (this.stream) this.stream.getTracks().forEach((t) => t.stop());
+    try { if (this.proc) { this.source.disconnect(this.proc); this.proc.disconnect(); } } catch (_) { /* already gone */ }
+    this.proc = null;
     const rate = this.ctx ? this.ctx.sampleRate : 48000;
-    if (this.ctx) this.ctx.close();
+    clearTimeout(this.idle);
+    this.idle = setTimeout(() => this.release(), 120000);
     return rate;
   }
   cancel() { if (this.ctx) this._teardown(); this.chunks = []; }
@@ -712,6 +735,7 @@ function encodeWav(samples, rate) {
 }
 
 const rec = new Recorder();
+document.addEventListener('visibilitychange', () => { if (document.hidden && !rec.active) rec.release(); });
 let session = null;
 let holding = false;
 
@@ -727,16 +751,17 @@ async function startListening() {
   closeTypebar();
   session = { at: performance.now(), ready: rec.start() };
   const mine = session;
-  showSaid(null, 'Starting the microphone…');
+  setHint('Starting the microphone…');
   // Some home-screen web apps never answer the microphone request; don't leave the cloud stuck waiting.
   const late = new Promise((_, no) => setTimeout(() => no(Object.assign(new Error('mic timeout'), { name: 'Timeout' })), 6000));
   try { await Promise.race([mine.ready, late]); } catch (err) {
-    if (session === mine) { session = null; holding = false; rec.cancel(); hideSaid(); toast(micMessage(err)); openTypebar(); }
+    if (session === mine) { session = null; holding = false; rec.release(); hideSaid(); toast(micMessage(err)); openTypebar(); }
     return;
   }
   if (session !== mine) { rec.cancel(); return; }
   app.classList.add('listening');
-  showSaid(null, 'Listening. Let go when you’re done.');
+  hideSaid();
+  setHint('Listening. Let go when you’re done.');
   cloud.setAttribute('aria-label', 'Listening. Release, or press Enter, to send.');
   const bars = [...cloud.querySelectorAll('.bars rect')];
   const shape = [0.6, 1, 1.35, 0.9, 0.55];
