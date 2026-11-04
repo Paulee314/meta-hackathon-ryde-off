@@ -479,3 +479,25 @@ body[data-night='1'] .sky .tint { background: linear-gradient(180deg, rgba(40, 4
 @keyframes streak { from { transform: translateX(-140px); opacity: 0; } 20% { opacity: 1; } to { transform: translateX(110vw); opacity: 0; } }
 @keyframes flash { 0%, 92%, 100% { opacity: 0; } 93% { opacity: 0.55; } 95% { opacity: 0.1; } 96% { opacity: 0.45; } }
 @media (prefers-reduced-motion: reduce) { .sky * { animation: none !important; } .drop, .flake, .leaf, .gust, .flash { display: none; } }
+
+/* ---- the sky, alive: beams that breathe, clouds and rain that sway (Paul, Nov 4) ---- */
+.sun { animation: sunglow 4.5s ease-in-out infinite; }
+.sun::before { animation: spin 60s linear infinite, beams 3.2s ease-in-out infinite alternate; }
+.sun::after { content: ''; position: absolute; inset: -12%; border-radius: 50%;
+  background: repeating-conic-gradient(rgba(255, 240, 175, 0.4) 0 3deg, transparent 3deg 14deg);
+  -webkit-mask: radial-gradient(circle, transparent 30%, #000 33%, transparent 70%); mask: radial-gradient(circle, transparent 30%, #000 33%, transparent 70%);
+  animation: spin-back 90s linear infinite, beams 4.4s ease-in-out infinite alternate-reverse; }
+.sky-cloud { animation-name: drift, sway; animation-timing-function: linear, ease-in-out; animation-iteration-count: infinite, infinite; }
+.sky-cloud:nth-of-type(odd) { --sway-x: 14px; --sway-y: 6px; }
+.sky-cloud:nth-of-type(even) { --sway-x: -10px; --sway-y: 9px; }
+.drop { animation-name: fall, rainsway; animation-timing-function: linear, ease-in-out; animation-iteration-count: infinite, infinite; }
+.moon { animation: moonglow 5s ease-in-out infinite; }
+body[data-sky='rain'] .sky .tint, body[data-sky='storm'] .sky .tint, body[data-sky='cloudy'] .sky .tint { animation: gloom 9s ease-in-out infinite; }
+@keyframes spin-back { to { transform: rotate(-360deg); } }
+@keyframes sunglow { 0%, 100% { scale: 1; opacity: 0.92; } 50% { scale: 1.07; opacity: 1; } }
+@keyframes beams { from { opacity: 0.45; scale: 0.96; } to { opacity: 1; scale: 1.08; } }
+@keyframes sway { 0%, 100% { translate: 0 0; } 50% { translate: var(--sway-x) var(--sway-y); } }
+@keyframes rainsway { 0%, 100% { translate: -5px 0; rotate: 4deg; } 50% { translate: 5px 0; rotate: -4deg; } }
+@keyframes moonglow { 0%, 100% { box-shadow: 0 0 34px 8px rgba(255, 244, 205, 0.4); } 50% { box-shadow: 0 0 52px 16px rgba(255, 244, 205, 0.6); } }
+@keyframes gloom { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+@media (prefers-reduced-motion: reduce) { .sun, .sun::before, .sun::after, .moon { animation: none !important; } }

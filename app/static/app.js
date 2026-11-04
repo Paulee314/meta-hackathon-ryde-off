@@ -1082,11 +1082,11 @@ function renderSky(s) {
   const clouds = { clear: 0, partly: 2, windy: 2, cloudy: 4, fog: 3, rain: 4, storm: 4, snow: 3 }[st] || 0;
   for (let i = 0; i < clouds; i++) {
     const c = skyCloud('sky-cloud', gray ? (i % 2 ? '#8D97B5' : '#A3ACC7') : (i % 2 ? '#FFFFFF' : '#F1F5FC'));
-    c.style.cssText = `top:${rnd(-4, 30)}%;width:${rnd(150, 260).toFixed(0)}px;animation-duration:${rnd(55, 95).toFixed(0)}s;animation-delay:-${rnd(0, 80).toFixed(0)}s`;
+    c.style.cssText = `top:${rnd(-4, 30)}%;width:${rnd(150, 260).toFixed(0)}px;animation-duration:${rnd(55, 95).toFixed(0)}s,${rnd(6, 10).toFixed(1)}s;animation-delay:-${rnd(0, 80).toFixed(0)}s,-${rnd(0, 8).toFixed(1)}s`;
     kids.push(c);
   }
   if (gray) {
-    for (let i = 0; i < 70; i++) kids.push(el('i', { class: 'drop', style: `left:${rnd(0, 100)}%;animation-duration:${rnd(0.6, 1).toFixed(2)}s;animation-delay:-${rnd(0, 1).toFixed(2)}s` }));
+    for (let i = 0; i < 70; i++) kids.push(el('i', { class: 'drop', style: `left:${rnd(0, 100)}%;animation-duration:${rnd(0.6, 1).toFixed(2)}s,${rnd(3, 5).toFixed(1)}s;animation-delay:-${rnd(0, 1).toFixed(2)}s,-${rnd(0, 4).toFixed(1)}s` }));
     if (st === 'storm') kids.push(el('div', { class: 'flash' }));
   }
   if (st === 'snow') {
