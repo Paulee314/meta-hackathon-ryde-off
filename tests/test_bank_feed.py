@@ -26,7 +26,7 @@ from ingest.load import load_folder  # noqa: E402
 
 MONTH = ROOT / "samples" / "october"
 TODAY = date(2026, 10, 31)
-FEED = json.loads((ROOT / "tests" / "fixtures" / "plaid_feed.json").read_text())   # a live Sandbox pull, Oct 29
+FEED = json.loads((ROOT / "tests" / "fixtures" / "plaid_feed.json").read_text())   # a live Sandbox pull, Nov 3
 
 
 def state(bank=None):
@@ -76,8 +76,9 @@ class WhatTheTestBankHolds(unittest.TestCase):
 class FakePlaid:
     """Stands in for Plaid: answers the five calls a pull makes, from the recorded pull."""
 
-    def __init__(self, loading_rounds=1, fail_on=None):
+    def __init__(self, loading_rounds=1, fail_on=None, late_history=False):
         self.calls, self.loading, self.fail_on, self.syncs = [], loading_rounds, fail_on, 0
+        self.late_history = late_history   # Plaid's way: "complete" arrives with the recent rows, the rest a call later
 
     def __call__(self, path, payload):
         self.calls.append((path, payload))
@@ -94,10 +95,14 @@ class FakePlaid:
                         "transactions_update_status": "NOT_READY"}
             rows = [{**t, "personal_finance_category": {"detailed": t["category"]}} for t in FEED["transactions"]]
             half = len(rows) // 2
-            first = self.syncs == self.loading + 1
-            return {"added": rows[:half] if first else rows[half:], "modified": [], "removed": [],
-                    "has_more": first, "next_cursor": f"c{self.syncs}",
+            n = self.syncs - self.loading   # 1: first page with data, 2: the rest, then quiet pages
+            page = {"added": [], "modified": [], "removed": [], "has_more": False, "next_cursor": f"c{self.syncs}",
                     "transactions_update_status": "HISTORICAL_UPDATE_COMPLETE"}
+            if n == 1:
+                page.update(added=rows[half:], has_more=not self.late_history)
+            elif n == 2:
+                page.update(added=rows[:half], modified=rows[half:] if self.late_history else [])
+            return page
         if path == "/accounts/get":
             return {"accounts": [{"account_id": a["account_id"], "name": a["name"], "mask": a["mask"], "type": a["type"],
                                   "subtype": a["subtype"], "balances": {"current": a["balance"]}} for a in FEED["accounts"]]}
@@ -111,11 +116,18 @@ class ThePull(unittest.TestCase):
         fake = FakePlaid(loading_rounds=2)
         feed = bank_feed.pull(MONTH, post=fake, sleep=lambda s: None)
         paths = [p for p, _ in fake.calls]
-        self.assertEqual(paths, ["/sandbox/public_token/create", "/item/public_token/exchange"] + ["/transactions/sync"] * 4
+        self.assertEqual(paths, ["/sandbox/public_token/create", "/item/public_token/exchange"] + ["/transactions/sync"] * 5
                          + ["/accounts/get", "/item/remove"])
         self.assertEqual(len(feed["transactions"]), len(FEED["transactions"]))
         self.assertEqual(fake.calls[5][1]["cursor"], "c3")   # the next page starts where the last one ended
         self.assertEqual(bank_feed.compare(MONTH, feed)["only_in_feed"], [])
+
+    def test_keeps_reading_after_plaid_says_the_history_is_complete(self):
+        # Nov 3: "complete" came with the last 30 days, and Oct 2-3 arrived on the next call
+        fake = FakePlaid(late_history=True)
+        feed = bank_feed.pull(MONTH, post=fake, sleep=lambda s: None)
+        self.assertEqual(len(feed["transactions"]), len(FEED["transactions"]))
+        self.assertEqual(min(t["date"] for t in feed["transactions"]), min(t["date"] for t in FEED["transactions"]))
 
     def test_signs_in_as_the_custom_user_at_a_sandbox_bank(self):
         fake = FakePlaid()
@@ -189,6 +201,7 @@ class TheRecordedPull(unittest.TestCase):
         self.assertEqual(c["only_in_feed"], [])
         self.assertEqual(c["feed"] + len(c["not_posted_yet"]), c["csv"])
         self.assertTrue(all(r[1] > FEED["pulled_at"][:10] for r in c["not_posted_yet"]))
+        self.assertEqual((c["feed"], c["not_posted_yet"]), (58, []))   # pulled after the whole month posted
 
     def test_checking_balance_ties_to_the_statement(self):
         self.assertEqual([(b["account"], b["ok"]) for b in self.compared["balances"]], [("chase_1234", True)])
@@ -211,6 +224,10 @@ class TheRecordedPull(unittest.TestCase):
     def test_plaid_s_categories_ride_along_as_hints(self):
         burger = next(t for t in self.fed if "LONE STAR BURGER" in t.description)
         self.assertEqual(burger.source_category, "FOOD_AND_DRINK_FAST_FOOD")
+
+    def test_checking_ties_to_its_statement_from_the_feed(self):
+        checks = {c["id"]: c for c in close.run(self.fed, MONTH)["checks"]}
+        self.assertTrue(checks["checking-ties"]["ok"], checks["checking-ties"]["detail"])
 
     def test_the_close_agent_scores_the_same(self):
         out = close.run(self.fed, MONTH)

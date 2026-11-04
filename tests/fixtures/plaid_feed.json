@@ -2,12 +2,12 @@
  "source": "plaid_sandbox",
  "institution": "First Platypus Bank",
  "institution_id": "ins_109508",
- "pulled_at": "2026-10-29T21:11:10Z",
- "seconds": 7.8,
+ "pulled_at": "2026-11-04T05:25:37Z",
+ "seconds": 8.8,
  "status": "HISTORICAL_UPDATE_COMPLETE",
  "accounts": [
   {
-   "account_id": "zkgakqBg34s6m9zP6854IK4mV5ozM5Ilb6Eal",
+   "account_id": "podZNk1wRRcJXw5y6yWPTl1NBzV33GfpgoWJ7",
    "name": "Platinum card",
    "mask": "1005",
    "type": "credit",
@@ -17,7 +17,7 @@
    "books_account": "amex_platinum"
   },
   {
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "name": "Business checking",
    "mask": "1234",
    "type": "depository",
@@ -31,7 +31,7 @@
    }
   },
   {
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
    "name": "Ink Business card",
    "mask": "9001",
    "type": "credit",
@@ -43,8 +43,8 @@
  ],
  "transactions": [
   {
-   "transaction_id": "EjPwj4RPZzI6w3JD6bMpIl3lzGEnwrFg1oxxa",
-   "account_id": "zkgakqBg34s6m9zP6854IK4mV5ozM5Ilb6Eal",
+   "transaction_id": "ymZyLJGqWWt6elKQ1Qy8hG86KEWNV8f4d6lDn",
+   "account_id": "podZNk1wRRcJXw5y6yWPTl1NBzV33GfpgoWJ7",
    "amount": 20,
    "date": "2026-10-02",
    "authorized_date": "2026-10-02",
@@ -55,20 +55,8 @@
    "category": "GENERAL_SERVICES_OTHER_GENERAL_SERVICES"
   },
   {
-   "transaction_id": "WmbLmGwbroSpKyJopBm3hPxPqolLd3iPDpZZJ",
-   "account_id": "zkgakqBg34s6m9zP6854IK4mV5ozM5Ilb6Eal",
-   "amount": 45,
-   "date": "2026-10-03",
-   "authorized_date": "2026-10-03",
-   "name": "HISCOX INSURANCE",
-   "original_description": "HISCOX INSURANCE",
-   "merchant_name": "Hiscox",
-   "pending": false,
-   "category": "GENERAL_SERVICES_INSURANCE"
-  },
-  {
-   "transaction_id": "oMPJMVZPARUNAnLqNj7MhPRPQDgWr5ipzNq5G",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "8B8AeylKjjtV1xD6o68WI9QEvWeabQHWa3GKG",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": 612.4,
    "date": "2026-10-03",
    "authorized_date": "2026-10-03",
@@ -79,8 +67,20 @@
    "category": "LOAN_PAYMENTS_CAR_PAYMENT"
   },
   {
-   "transaction_id": "dxqDxVeqQlTB7gEzBG9qtB8B3KzZeLiBm4EEp",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
+   "transaction_id": "93gDQyqrMMs8bdKM9MyzHxQ9kbdJpQF48x5Ex",
+   "account_id": "podZNk1wRRcJXw5y6yWPTl1NBzV33GfpgoWJ7",
+   "amount": 45,
+   "date": "2026-10-03",
+   "authorized_date": "2026-10-03",
+   "name": "HISCOX INSURANCE",
+   "original_description": "HISCOX INSURANCE",
+   "merchant_name": "Hiscox",
+   "pending": false,
+   "category": "GENERAL_SERVICES_INSURANCE"
+  },
+  {
+   "transaction_id": "ZlG6Xzv7yyFy6jBDWD9otBQ6544q1QtepPx33",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
    "amount": 6.46,
    "date": "2026-10-05",
    "authorized_date": "2026-10-04",
@@ -91,8 +91,8 @@
    "category": "GENERAL_SERVICES_AUTOMOTIVE"
   },
   {
-   "transaction_id": "g4zP4Vwz1rsoDQG5oB6gH3a3XrzLbPTLwK8Rk",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "lMzjxBeEQQUqao1jQjAWuV7LXWWQJ7fpQnMya",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": 286.4,
    "date": "2026-10-05",
    "authorized_date": "2026-10-05",
@@ -103,20 +103,8 @@
    "category": "GENERAL_SERVICES_INSURANCE"
   },
   {
-   "transaction_id": "8l5DlG45zxsDybZKDv5au878o1p6eAiZG93p4",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
-   "amount": -80.13,
-   "date": "2026-10-06",
-   "authorized_date": "2026-10-06",
-   "name": "Lyft",
-   "original_description": "ORIG CO NAME:LYFT INC ORIG ID:2683754741 DESC DATE:261006 CO ENTRY DESCR:PAYMENTS SEC:CCD TRACE#:547733374366304 EED:261006 IND ID:46181183 IND NAME:RIVERA JORDAN TRN: 3178205404TC",
-   "merchant_name": null,
-   "pending": false,
-   "category": "INCOME_SALARY"
-  },
-  {
-   "transaction_id": "EjPwj4RPZzI6w3JD6bMpIl3lzGEnwrFg1oxea",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "K8r6v31kNNikgJKBeBQxtDXqKggRnXuRqK5Pm",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": -490.91,
    "date": "2026-10-06",
    "authorized_date": "2026-10-06",
@@ -127,8 +115,20 @@
    "category": "INCOME_SALARY"
   },
   {
-   "transaction_id": "Aadxa35djlFBQDENByM8tXoXpjVJE7t4dgrrq",
-   "account_id": "zkgakqBg34s6m9zP6854IK4mV5ozM5Ilb6Eal",
+   "transaction_id": "qgaMP4Lw11hb5kmE8Ea9c1L349987LtgGLQaN",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
+   "amount": -80.13,
+   "date": "2026-10-06",
+   "authorized_date": "2026-10-06",
+   "name": "Lyft",
+   "original_description": "ORIG CO NAME:LYFT INC ORIG ID:2683754741 DESC DATE:261006 CO ENTRY DESCR:PAYMENTS SEC:CCD TRACE#:547733374366304 EED:261006 IND ID:46181183 IND NAME:RIVERA JORDAN TRN: 3178205404TC",
+   "merchant_name": null,
+   "pending": false,
+   "category": "INCOME_SALARY"
+  },
+  {
+   "transaction_id": "6r15jyRlbbuJENgdndkpTn3B8119Q3u8Zmz6n",
+   "account_id": "podZNk1wRRcJXw5y6yWPTl1NBzV33GfpgoWJ7",
    "amount": 2.99,
    "date": "2026-10-07",
    "authorized_date": "2026-10-07",
@@ -139,8 +139,8 @@
    "category": "ENTERTAINMENT_OTHER_ENTERTAINMENT"
   },
   {
-   "transaction_id": "azwBzVJwjEhGRwlqGQgjSkek9LR4Eztkzg55v",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
+   "transaction_id": "MWB6vdpqNNUJQe8vovMaT1B7APPnjBtLvNmKW",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
    "amount": 6,
    "date": "2026-10-07",
    "authorized_date": "2026-10-06",
@@ -151,20 +151,8 @@
    "category": "TRANSPORTATION_PARKING"
   },
   {
-   "transaction_id": "Aadxa35djlFBQDENByM8tXoXpjVJE7t4dgrJq",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
-   "amount": -216.65,
-   "date": "2026-10-08",
-   "authorized_date": "2026-10-08",
-   "name": "ORIG CO NAME:TURO INC ORIG ID:7995179464 DESC DATE:261008 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:321077257550900 EED:261008 IND ID:83034549 IND NAME:RIVERA JORDAN TRN: 3529750777TC",
-   "original_description": "ORIG CO NAME:TURO INC ORIG ID:7995179464 DESC DATE:261008 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:321077257550900 EED:261008 IND ID:83034549 IND NAME:RIVERA JORDAN TRN: 3529750777TC",
-   "merchant_name": null,
-   "pending": false,
-   "category": "INCOME_GIG_ECONOMY"
-  },
-  {
-   "transaction_id": "WmbLmGwbroSpKyJopBm3hPxPqolLd3iPDpZyJ",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "r841kNpEWWi9Rvgx4xNKuEBdmKK4DBH74pGxo",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": 598.1,
    "date": "2026-10-08",
    "authorized_date": "2026-10-08",
@@ -175,20 +163,20 @@
    "category": "LOAN_PAYMENTS_CAR_PAYMENT"
   },
   {
-   "transaction_id": "Ge7yePb71GFARvaLAXpjIGEGpevlqPuGQbMxE",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
-   "amount": 40,
-   "date": "2026-10-09",
-   "authorized_date": "2026-10-09",
-   "name": "HCTRA EZ TAG REBILL TX card 4417",
-   "original_description": "HCTRA EZ TAG REBILL 281-875-3279 TX card 4417",
-   "merchant_name": "Harris County Toll Road Authority",
+   "transaction_id": "zyEVpokKwwIDe36WvWpEiAD6B44vyDSlrMe9M",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
+   "amount": -216.65,
+   "date": "2026-10-08",
+   "authorized_date": "2026-10-08",
+   "name": "ORIG CO NAME:TURO INC ORIG ID:7995179464 DESC DATE:261008 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:321077257550900 EED:261008 IND ID:83034549 IND NAME:RIVERA JORDAN TRN: 3529750777TC",
+   "original_description": "ORIG CO NAME:TURO INC ORIG ID:7995179464 DESC DATE:261008 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:321077257550900 EED:261008 IND ID:83034549 IND NAME:RIVERA JORDAN TRN: 3529750777TC",
+   "merchant_name": null,
    "pending": false,
-   "category": "TRANSPORTATION_TOLLS"
+   "category": "INCOME_GIG_ECONOMY"
   },
   {
-   "transaction_id": "nZNMZVmNWXSpreWlpP7VhX5XnRgADEt3nzllz",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "3lDo4ky1XXFEAvVKPKJoiwRp7XXWyRFZ6QWpX",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": -203.14,
    "date": "2026-10-09",
    "authorized_date": "2026-10-09",
@@ -199,8 +187,20 @@
    "category": "TRANSPORTATION_TAXIS_AND_RIDE_SHARES"
   },
   {
-   "transaction_id": "49Xa98wXl3UvybGRvrKqHXZXPjVJ3etlZabbq",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
+   "transaction_id": "BegAEy4PKKcZn3gmJmxGUNQ5q77zWQf4EXkPk",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
+   "amount": 40,
+   "date": "2026-10-09",
+   "authorized_date": "2026-10-09",
+   "name": "HCTRA EZ TAG REBILL TX card 4417",
+   "original_description": "HCTRA EZ TAG REBILL 281-875-3279 TX card 4417",
+   "merchant_name": "Harris County Toll Road Authority",
+   "pending": false,
+   "category": "TRANSPORTATION_TOLLS"
+  },
+  {
+   "transaction_id": "1XD5d7bZMMtgEbxymyJaFQqN3bbKEqSpRNDzK",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
    "amount": 15.64,
    "date": "2026-10-10",
    "authorized_date": "2026-10-09",
@@ -211,8 +211,8 @@
    "category": "GENERAL_SERVICES_AUTOMOTIVE"
   },
   {
-   "transaction_id": "Nop7o1VpWeHd8knDdeJmfX8XlrVdx3tXgM66L",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
+   "transaction_id": "LEz6vxLlNNsgzr7W4WmdFGVLrwwvRVukMq378",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
    "amount": 18,
    "date": "2026-10-10",
    "authorized_date": "2026-10-09",
@@ -223,8 +223,8 @@
    "category": "GENERAL_SERVICES_AUTOMOTIVE"
   },
   {
-   "transaction_id": "bB56BVe57aTq7XWKqlJ6ToaowjJBVKCodWbba",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "xbZy1kAlWWiq81Dalap6uevoA99lpvi6jkQoL",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": -472.95,
    "date": "2026-10-10",
    "authorized_date": "2026-10-10",
@@ -235,8 +235,8 @@
    "category": "INCOME_GIG_ECONOMY"
   },
   {
-   "transaction_id": "Ge7yePb71GFARvaLAXpjIGEGpevlqPuGQbMME",
-   "account_id": "zkgakqBg34s6m9zP6854IK4mV5ozM5Ilb6Eal",
+   "transaction_id": "XXD6vKyPVVtQDyopRp4LtQ5xBRRGK5SbZ9DQl",
+   "account_id": "podZNk1wRRcJXw5y6yWPTl1NBzV33GfpgoWJ7",
    "amount": 14.32,
    "date": "2026-10-11",
    "authorized_date": "2026-10-11",
@@ -247,8 +247,8 @@
    "category": "FOOD_AND_DRINK_FAST_FOOD"
   },
   {
-   "transaction_id": "P8gQ8pRgGyURLxeDRom8TXAX3zLJwZtX9z66w",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
+   "transaction_id": "podZNk1wRRcJXw5y6yWPTl14pPP7B1CpGbXwG",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
    "amount": 17.67,
    "date": "2026-10-12",
    "authorized_date": "2026-10-11",
@@ -259,8 +259,8 @@
    "category": "GENERAL_SERVICES_AUTOMOTIVE"
   },
   {
-   "transaction_id": "9qldqnWlBvtK14RrKkmpTaraKGvDdLUq5Zxxw",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "4qgDNy9LkkCWDwv3k3nLcgopqZZjyoSJz9me6",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": -314.21,
    "date": "2026-10-13",
    "authorized_date": "2026-10-13",
@@ -271,32 +271,8 @@
    "category": "INCOME_SALARY"
   },
   {
-   "transaction_id": "jjxJjV3xoeIWRzd4WGnJIjljKdJXb9FvBJWW1",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
-   "amount": 38.62,
-   "date": "2026-10-13",
-   "authorized_date": "2026-10-12",
-   "name": "DETAILPRO SUPPLY CO",
-   "original_description": "DETAILPRO SUPPLY CO",
-   "merchant_name": "Detail Pro",
-   "pending": false,
-   "category": "GENERAL_MERCHANDISE_OTHER_GENERAL_MERCHANDISE"
-  },
-  {
-   "transaction_id": "mQ4gQVW4EecWKpVRWNw3IlrlPAx7VNF4W1yy6",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
-   "amount": -383.7,
-   "date": "2026-10-13",
-   "authorized_date": "2026-10-13",
-   "name": "ORIG CO NAME:TURO INC ORIG ID:1034075122 DESC DATE:261013 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:808569036345462 EED:261013 IND ID:68572130 IND NAME:RIVERA JORDAN TRN: 5161676505TC",
-   "original_description": "ORIG CO NAME:TURO INC ORIG ID:1034075122 DESC DATE:261013 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:808569036345462 EED:261013 IND ID:68572130 IND NAME:RIVERA JORDAN TRN: 5161676505TC",
-   "merchant_name": null,
-   "pending": false,
-   "category": "INCOME_GIG_ECONOMY"
-  },
-  {
-   "transaction_id": "yGoMGl9oBaSKz4WNKGAMTJ4JLgqRWdcKlE66l",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "axLKvNzprrfN69GrZr3ntBgKVeeLagtZwoXql",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": -112.9,
    "date": "2026-10-13",
    "authorized_date": "2026-10-13",
@@ -307,20 +283,32 @@
    "category": "INCOME_SALARY"
   },
   {
-   "transaction_id": "76wa6AvwrJTJ6M5kJlnWhXgXQV3NpWt8mXJJd",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
-   "amount": 22.82,
-   "date": "2026-10-15",
-   "authorized_date": "2026-10-14",
-   "name": "TESLA SUPERCHARGER US",
-   "original_description": "TESLA SUPERCHARGER US",
-   "merchant_name": "Tesla",
+   "transaction_id": "d4ABv7xE33t6Z3BXdXayhj7dX88Kp7cJKlXwA",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
+   "amount": -383.7,
+   "date": "2026-10-13",
+   "authorized_date": "2026-10-13",
+   "name": "ORIG CO NAME:TURO INC ORIG ID:1034075122 DESC DATE:261013 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:808569036345462 EED:261013 IND ID:68572130 IND NAME:RIVERA JORDAN TRN: 5161676505TC",
+   "original_description": "ORIG CO NAME:TURO INC ORIG ID:1034075122 DESC DATE:261013 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:808569036345462 EED:261013 IND ID:68572130 IND NAME:RIVERA JORDAN TRN: 5161676505TC",
+   "merchant_name": null,
    "pending": false,
-   "category": "GENERAL_SERVICES_AUTOMOTIVE"
+   "category": "INCOME_GIG_ECONOMY"
   },
   {
-   "transaction_id": "edKPdV4KZqhE78nBErDKHlylwQVAamFazW99a",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
+   "transaction_id": "opkQ4dMEmmi5gQNvDv6Rt8alXRRDVacoD1vjm",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
+   "amount": 38.62,
+   "date": "2026-10-13",
+   "authorized_date": "2026-10-12",
+   "name": "DETAILPRO SUPPLY CO",
+   "original_description": "DETAILPRO SUPPLY CO",
+   "merchant_name": "Detail Pro",
+   "pending": false,
+   "category": "GENERAL_MERCHANDISE_OTHER_GENERAL_MERCHANDISE"
+  },
+  {
+   "transaction_id": "8B8AeylKjjtV1xD6o68WI9QEr771NQTW6gNnQ",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
    "amount": 85,
    "date": "2026-10-15",
    "authorized_date": "2026-10-14",
@@ -331,8 +319,8 @@
    "category": "RENT_AND_UTILITIES_TELEPHONE"
   },
   {
-   "transaction_id": "vE1MEVb1KrFWRxAdWmQZIPgPLVvXexivE866A",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "Nk36vaoKjjcByAd1M1l4CqWBa88rgWsydoVvP",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": 1500,
    "date": "2026-10-15",
    "authorized_date": "2026-10-15",
@@ -343,8 +331,20 @@
    "category": "TRANSFER_OUT_ACCOUNT_TRANSFER"
   },
   {
-   "transaction_id": "RWEQWgJEbeIXP981XBkEsPKPreAzgNiPBnppb",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "gjLdKl49aaiq7XoLrLPRuvD1AaarQDtEBPyoG",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
+   "amount": 22.82,
+   "date": "2026-10-15",
+   "authorized_date": "2026-10-14",
+   "name": "TESLA SUPERCHARGER US",
+   "original_description": "TESLA SUPERCHARGER US",
+   "merchant_name": "Tesla",
+   "pending": false,
+   "category": "GENERAL_SERVICES_AUTOMOTIVE"
+  },
+  {
+   "transaction_id": "Pnd6vN8zZZFEWqRKZK9Pi9M6aAAzrMToa8KDq",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": -321.72,
    "date": "2026-10-16",
    "authorized_date": "2026-10-16",
@@ -355,8 +355,32 @@
    "category": "INCOME_GIG_ECONOMY"
   },
   {
-   "transaction_id": "6RVeRWJVKwhgZWXogezvTK1K49mxZWU1ydDD3",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "EMgbGljeBBUg1W6eQemqF16LJ33GQ6t47r6yZ",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
+   "amount": 17.36,
+   "date": "2026-10-17",
+   "authorized_date": "2026-10-16",
+   "name": "TESLA SUPERCHARGER US",
+   "original_description": "TESLA SUPERCHARGER US",
+   "merchant_name": "Tesla",
+   "pending": false,
+   "category": "GENERAL_SERVICES_AUTOMOTIVE"
+  },
+  {
+   "transaction_id": "W6eVvqmNyyFzVjp4q4a1t76yExxoe6i68XBRW",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
+   "amount": 17.36,
+   "date": "2026-10-17",
+   "authorized_date": "2026-10-16",
+   "name": "TESLA SUPERCHARGER US",
+   "original_description": "TESLA SUPERCHARGER US",
+   "merchant_name": "Tesla",
+   "pending": false,
+   "category": "GENERAL_SERVICES_AUTOMOTIVE"
+  },
+  {
+   "transaction_id": "jQKNBrjEmmFMwKWakapgFV1aelld81f6dxQ5p",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": -150,
    "date": "2026-10-17",
    "authorized_date": "2026-10-17",
@@ -367,32 +391,8 @@
    "category": "TRANSFER_IN_TRANSFER_IN_FROM_APPS"
   },
   {
-   "transaction_id": "QE8XEoQ8neFVPagLV76yINqNeR6wnVuGJKmm3",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
-   "amount": 17.36,
-   "date": "2026-10-17",
-   "authorized_date": "2026-10-16",
-   "name": "TESLA SUPERCHARGER US",
-   "original_description": "TESLA SUPERCHARGER US",
-   "merchant_name": "Tesla",
-   "pending": false,
-   "category": "GENERAL_SERVICES_AUTOMOTIVE"
-  },
-  {
-   "transaction_id": "Zv98vVw93xTBxREdBzZMt949jqwnAaFJN7qqb",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
-   "amount": 17.36,
-   "date": "2026-10-17",
-   "authorized_date": "2026-10-16",
-   "name": "TESLA SUPERCHARGER US",
-   "original_description": "TESLA SUPERCHARGER US",
-   "merchant_name": "Tesla",
-   "pending": false,
-   "category": "GENERAL_SERVICES_AUTOMOTIVE"
-  },
-  {
-   "transaction_id": "MpLjpM9Lk1U8gbkA87XxT4P4WnQoRzF4EQ66z",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
+   "transaction_id": "A7v68yaNkkUwkoBWXW3zteqLBoojdqi9DaB81",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
    "amount": 18.01,
    "date": "2026-10-18",
    "authorized_date": "2026-10-17",
@@ -403,8 +403,8 @@
    "category": "GENERAL_SERVICES_AUTOMOTIVE"
   },
   {
-   "transaction_id": "1bv4bprvneUxj4lRxrNnh6b6oKRnGxiqxMjjN",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
+   "transaction_id": "GLEAvKeZxxu64DAJbJPrhoxQgEEekxS6vqZa6",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
    "amount": 126.43,
    "date": "2026-10-19",
    "authorized_date": "2026-10-18",
@@ -415,20 +415,8 @@
    "category": "FOOD_AND_DRINK_GROCERIES"
   },
   {
-   "transaction_id": "DPN1PaKNQrTGrqXLGDMRSoko7596KgC4k6WWL",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
-   "amount": -201.25,
-   "date": "2026-10-19",
-   "authorized_date": "2026-10-19",
-   "name": "ORIG CO NAME:TURO INC ORIG ID:8720453316 DESC DATE:261019 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:188144337600121 EED:261019 IND ID:20666120 IND NAME:RIVERA JORDAN TRN: 5593282507TC",
-   "original_description": "ORIG CO NAME:TURO INC ORIG ID:8720453316 DESC DATE:261019 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:188144337600121 EED:261019 IND ID:20666120 IND NAME:RIVERA JORDAN TRN: 5593282507TC",
-   "merchant_name": null,
-   "pending": false,
-   "category": "INCOME_GIG_ECONOMY"
-  },
-  {
-   "transaction_id": "XymgynpmkNcoE9VgojvqH1R1oG94p8s13eKKL",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "kZrP3z7EQQumPzaWwWQXClMpBXXnkMCLnqm9Z",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": -501.14,
    "date": "2026-10-19",
    "authorized_date": "2026-10-19",
@@ -439,32 +427,20 @@
    "category": "INCOME_GIG_ECONOMY"
   },
   {
-   "transaction_id": "5vD4vEzDqwTGWNJvGwrKSjnjw3zexoFGWNKKK",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
-   "amount": -849.31,
-   "date": "2026-10-20",
-   "authorized_date": "2026-10-20",
-   "name": "Uber",
-   "original_description": "ORIG CO NAME:UBER USA 6787 ORIG ID:0040300426 DESC DATE:261020 CO ENTRY DESCR:EDI PAYMNTSEC:CCD TRACE#:371671552930126 EED:261020 IND ID:70812977 IND NAME:RIVERA JORDAN TRN: 0579299239TC",
+   "transaction_id": "lMzjxBeEQQUqao1jQjAWuV7LXWWQJ7fpQnM4j",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
+   "amount": -201.25,
+   "date": "2026-10-19",
+   "authorized_date": "2026-10-19",
+   "name": "ORIG CO NAME:TURO INC ORIG ID:8720453316 DESC DATE:261019 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:188144337600121 EED:261019 IND ID:20666120 IND NAME:RIVERA JORDAN TRN: 5593282507TC",
+   "original_description": "ORIG CO NAME:TURO INC ORIG ID:8720453316 DESC DATE:261019 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:188144337600121 EED:261019 IND ID:20666120 IND NAME:RIVERA JORDAN TRN: 5593282507TC",
    "merchant_name": null,
    "pending": false,
-   "category": "INCOME_SALARY"
+   "category": "INCOME_GIG_ECONOMY"
   },
   {
-   "transaction_id": "VbnabAonKXUroQwWrLk9sq5qaDgn7QTqwKggQ",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
-   "amount": 412.66,
-   "date": "2026-10-20",
-   "authorized_date": "2026-10-20",
-   "name": "ORIG CO NAME:CHASE CREDIT CRD ORIG ID:2923911317 DESC DATE:261020 CO ENTRY DESCR:AUTOPAYBUSSEC:CCD TRACE#:090574719668314 EED:261020 IND ID:98509342 IND NAME:RIVERA JORDAN TRN: 3040541873TC",
-   "original_description": "ORIG CO NAME:CHASE CREDIT CRD ORIG ID:2923911317 DESC DATE:261020 CO ENTRY DESCR:AUTOPAYBUSSEC:CCD TRACE#:090574719668314 EED:261020 IND ID:98509342 IND NAME:RIVERA JORDAN TRN: 3040541873TC",
-   "merchant_name": null,
-   "pending": false,
-   "category": "LOAN_PAYMENTS_CREDIT_CARD_PAYMENT"
-  },
-  {
-   "transaction_id": "wWLbWVDLrzIqDjxaqpk4TadaNw8xX4UE5WZZR",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "K8r6v31kNNikgJKBeBQxtDXqKggRnXuRqK5yL",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": -186.65,
    "date": "2026-10-20",
    "authorized_date": "2026-10-20",
@@ -475,32 +451,32 @@
    "category": "INCOME_SALARY"
   },
   {
-   "transaction_id": "JMZ4MedZoGUJgk8oJdAQhQnQyvzrxDsQ9R668",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
-   "amount": -200.92,
-   "date": "2026-10-21",
-   "authorized_date": "2026-10-21",
-   "name": "ORIG CO NAME:TURO INC ORIG ID:8114620325 DESC DATE:261021 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:883271633928510 EED:261021 IND ID:02949244 IND NAME:RIVERA JORDAN TRN: 2143135772TC",
-   "original_description": "ORIG CO NAME:TURO INC ORIG ID:8114620325 DESC DATE:261021 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:883271633928510 EED:261021 IND ID:02949244 IND NAME:RIVERA JORDAN TRN: 2143135772TC",
-   "merchant_name": null,
-   "pending": false,
-   "category": "INCOME_GIG_ECONOMY"
-  },
-  {
-   "transaction_id": "LL14LZG18RU7p8Zk7y6vHeweovlBM1CeRNjj3",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
-   "amount": -412.66,
-   "date": "2026-10-21",
+   "transaction_id": "qgaMP4Lw11hb5kmE8Ea9c1L349987LtgGLQEn",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
+   "amount": 412.66,
+   "date": "2026-10-20",
    "authorized_date": "2026-10-20",
-   "name": "AUTOMATIC PAYMENT - THANK",
-   "original_description": "AUTOMATIC PAYMENT - THANK",
+   "name": "ORIG CO NAME:CHASE CREDIT CRD ORIG ID:2923911317 DESC DATE:261020 CO ENTRY DESCR:AUTOPAYBUSSEC:CCD TRACE#:090574719668314 EED:261020 IND ID:98509342 IND NAME:RIVERA JORDAN TRN: 3040541873TC",
+   "original_description": "ORIG CO NAME:CHASE CREDIT CRD ORIG ID:2923911317 DESC DATE:261020 CO ENTRY DESCR:AUTOPAYBUSSEC:CCD TRACE#:090574719668314 EED:261020 IND ID:98509342 IND NAME:RIVERA JORDAN TRN: 3040541873TC",
    "merchant_name": null,
    "pending": false,
    "category": "LOAN_PAYMENTS_CREDIT_CARD_PAYMENT"
   },
   {
-   "transaction_id": "nZNMZVmNWXSpreWlpP7VhX5XnRgADEt3nzlqz",
-   "account_id": "zkgakqBg34s6m9zP6854IK4mV5ozM5Ilb6Eal",
+   "transaction_id": "r841kNpEWWi9Rvgx4xNKuEBdmKK4DBH74pGQV",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
+   "amount": -849.31,
+   "date": "2026-10-20",
+   "authorized_date": "2026-10-20",
+   "name": "Uber",
+   "original_description": "ORIG CO NAME:UBER USA 6787 ORIG ID:0040300426 DESC DATE:261020 CO ENTRY DESCR:EDI PAYMNTSEC:CCD TRACE#:371671552930126 EED:261020 IND ID:70812977 IND NAME:RIVERA JORDAN TRN: 0579299239TC",
+   "merchant_name": null,
+   "pending": false,
+   "category": "INCOME_SALARY"
+  },
+  {
+   "transaction_id": "DZ96AyP7zzudzyG636mlSV8ZNkk5d8f3D7Z19",
+   "account_id": "podZNk1wRRcJXw5y6yWPTl1NBzV33GfpgoWJ7",
    "amount": 7.2,
    "date": "2026-10-21",
    "authorized_date": "2026-10-21",
@@ -511,32 +487,32 @@
    "category": "GENERAL_MERCHANDISE_OTHER_GENERAL_MERCHANDISE"
   },
   {
-   "transaction_id": "bB56BVe57aTq7XWKqlJ6ToaowjJBVKCodWbpa",
-   "account_id": "zkgakqBg34s6m9zP6854IK4mV5ozM5Ilb6Eal",
-   "amount": -318.9,
-   "date": "2026-10-22",
-   "authorized_date": "2026-10-22",
-   "name": "AUTOPAY PAYMENT - THANK YOU",
-   "original_description": "AUTOPAY PAYMENT - THANK YOU",
+   "transaction_id": "nL3eaxZEQQu1anpdRdD5ul4Zm55RQ4CARZJo3",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
+   "amount": -412.66,
+   "date": "2026-10-21",
+   "authorized_date": "2026-10-20",
+   "name": "AUTOMATIC PAYMENT - THANK",
+   "original_description": "AUTOMATIC PAYMENT - THANK",
    "merchant_name": null,
    "pending": false,
    "category": "LOAN_PAYMENTS_CREDIT_CARD_PAYMENT"
   },
   {
-   "transaction_id": "k7dx75XdgeUal3GNa9o7H3X3ZngqxeTJXZ66l",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
-   "amount": 318.9,
-   "date": "2026-10-22",
-   "authorized_date": "2026-10-22",
-   "name": "ORIG CO NAME:AMEX EPAYMENT ORIG ID:5928463121 DESC DATE:261022 CO ENTRY DESCR:ACH PMT SEC:CCD TRACE#:277926270117744 EED:261022 IND ID:65122925 IND NAME:RIVERA JORDAN TRN: 7908173621TC",
-   "original_description": "ORIG CO NAME:AMEX EPAYMENT ORIG ID:5928463121 DESC DATE:261022 CO ENTRY DESCR:ACH PMT SEC:CCD TRACE#:277926270117744 EED:261022 IND ID:65122925 IND NAME:RIVERA JORDAN TRN: 7908173621TC",
+   "transaction_id": "zyEVpokKwwIDe36WvWpEiAD6B44vyDSlrMeVW",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
+   "amount": -200.92,
+   "date": "2026-10-21",
+   "authorized_date": "2026-10-21",
+   "name": "ORIG CO NAME:TURO INC ORIG ID:8114620325 DESC DATE:261021 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:883271633928510 EED:261021 IND ID:02949244 IND NAME:RIVERA JORDAN TRN: 2143135772TC",
+   "original_description": "ORIG CO NAME:TURO INC ORIG ID:8114620325 DESC DATE:261021 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:883271633928510 EED:261021 IND ID:02949244 IND NAME:RIVERA JORDAN TRN: 2143135772TC",
    "merchant_name": null,
    "pending": false,
-   "category": "LOAN_PAYMENTS_CREDIT_CARD_PAYMENT"
+   "category": "INCOME_GIG_ECONOMY"
   },
   {
-   "transaction_id": "lea9eVga8XF1k3xP14VNhNWNoQeApvuakboov",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "3lDo4ky1XXFEAvVKPKJoiwRp7XXWyRFZ6QWAR",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": -533.05,
    "date": "2026-10-22",
    "authorized_date": "2026-10-22",
@@ -547,32 +523,32 @@
    "category": "TRANSPORTATION_TAXIS_AND_RIDE_SHARES"
   },
   {
-   "transaction_id": "K1M41QwMgeUKARvDKaoGTEgE9RN7v1iELzppP",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
-   "amount": -394.26,
-   "date": "2026-10-23",
-   "authorized_date": "2026-10-23",
-   "name": "ORIG CO NAME:TURO INC ORIG ID:8932269310 DESC DATE:261023 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:951179027752162 EED:261023 IND ID:14461343 IND NAME:RIVERA JORDAN TRN: 9999596546TC",
-   "original_description": "ORIG CO NAME:TURO INC ORIG ID:8932269310 DESC DATE:261023 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:951179027752162 EED:261023 IND ID:14461343 IND NAME:RIVERA JORDAN TRN: 9999596546TC",
+   "transaction_id": "BegAEy4PKKcZn3gmJmxGUNQ5q77zWQf4EXkB8",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
+   "amount": 318.9,
+   "date": "2026-10-22",
+   "authorized_date": "2026-10-22",
+   "name": "ORIG CO NAME:AMEX EPAYMENT ORIG ID:5928463121 DESC DATE:261022 CO ENTRY DESCR:ACH PMT SEC:CCD TRACE#:277926270117744 EED:261022 IND ID:65122925 IND NAME:RIVERA JORDAN TRN: 7908173621TC",
+   "original_description": "ORIG CO NAME:AMEX EPAYMENT ORIG ID:5928463121 DESC DATE:261022 CO ENTRY DESCR:ACH PMT SEC:CCD TRACE#:277926270117744 EED:261022 IND ID:65122925 IND NAME:RIVERA JORDAN TRN: 7908173621TC",
    "merchant_name": null,
    "pending": false,
-   "category": "INCOME_GIG_ECONOMY"
+   "category": "LOAN_PAYMENTS_CREDIT_CARD_PAYMENT"
   },
   {
-   "transaction_id": "qL7bLV57nmUm3MXrme7zI595k8QoymU6ZwrrD",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
-   "amount": -64.2,
-   "date": "2026-10-23",
-   "authorized_date": "2026-10-23",
-   "name": "ORIG CO NAME:TURO INC ORIG ID:4055458920 DESC DATE:261023 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:420468790112515 EED:261023 IND ID:78979486 IND NAME:RIVERA JORDAN TRN: 4026718684TC",
-   "original_description": "ORIG CO NAME:TURO INC ORIG ID:4055458920 DESC DATE:261023 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:420468790112515 EED:261023 IND ID:78979486 IND NAME:RIVERA JORDAN TRN: 4026718684TC",
+   "transaction_id": "VR76vkb4yyiaVErR7RdMiLR4B55DNRt91oDaj",
+   "account_id": "podZNk1wRRcJXw5y6yWPTl1NBzV33GfpgoWJ7",
+   "amount": -318.9,
+   "date": "2026-10-22",
+   "authorized_date": "2026-10-22",
+   "name": "AUTOPAY PAYMENT - THANK YOU",
+   "original_description": "AUTOPAY PAYMENT - THANK YOU",
    "merchant_name": null,
    "pending": false,
-   "category": "INCOME_GIG_ECONOMY"
+   "category": "LOAN_PAYMENTS_CREDIT_CARD_PAYMENT"
   },
   {
-   "transaction_id": "rpegpVXebLUgAByzgQ6MTXKXv4A1LjtdnZJJQ",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "axLKvNzprrfN69GrZr3ntBgKVeeLagtZwoXN6",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": -222.09,
    "date": "2026-10-23",
    "authorized_date": "2026-10-23",
@@ -583,8 +559,32 @@
    "category": "INCOME_GIG_ECONOMY"
   },
   {
-   "transaction_id": "p1jP1VbjGJU5BZbK5GmNHqPqw7gez6TJW5ooe",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
+   "transaction_id": "d4ABv7xE33t6Z3BXdXayhj7dX88Kp7cJKlXkn",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
+   "amount": -394.26,
+   "date": "2026-10-23",
+   "authorized_date": "2026-10-23",
+   "name": "ORIG CO NAME:TURO INC ORIG ID:8932269310 DESC DATE:261023 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:951179027752162 EED:261023 IND ID:14461343 IND NAME:RIVERA JORDAN TRN: 9999596546TC",
+   "original_description": "ORIG CO NAME:TURO INC ORIG ID:8932269310 DESC DATE:261023 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:951179027752162 EED:261023 IND ID:14461343 IND NAME:RIVERA JORDAN TRN: 9999596546TC",
+   "merchant_name": null,
+   "pending": false,
+   "category": "INCOME_GIG_ECONOMY"
+  },
+  {
+   "transaction_id": "xbZy1kAlWWiq81Dalap6uevoA99lpvi6jkQ1e",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
+   "amount": -64.2,
+   "date": "2026-10-23",
+   "authorized_date": "2026-10-23",
+   "name": "ORIG CO NAME:TURO INC ORIG ID:4055458920 DESC DATE:261023 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:420468790112515 EED:261023 IND ID:78979486 IND NAME:RIVERA JORDAN TRN: 4026718684TC",
+   "original_description": "ORIG CO NAME:TURO INC ORIG ID:4055458920 DESC DATE:261023 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:420468790112515 EED:261023 IND ID:78979486 IND NAME:RIVERA JORDAN TRN: 4026718684TC",
+   "merchant_name": null,
+   "pending": false,
+   "category": "INCOME_GIG_ECONOMY"
+  },
+  {
+   "transaction_id": "bd9rvPBEzzcoNwqyjye5iXyPnaajMytmjEBlN",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
    "amount": 45.47,
    "date": "2026-10-25",
    "authorized_date": "2026-10-24",
@@ -595,32 +595,8 @@
    "category": "GENERAL_SERVICES_AUTOMOTIVE"
   },
   {
-   "transaction_id": "B4aD4xNa7qsgrVAPgWb5Tg7gpzovrPUzQ3MMW",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
-   "amount": -265.46,
-   "date": "2026-10-26",
-   "authorized_date": "2026-10-26",
-   "name": "ORIG CO NAME:TURO INC ORIG ID:1907014784 DESC DATE:261026 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:992040491805350 EED:261026 IND ID:19196520 IND NAME:RIVERA JORDAN TRN: 0346842034TC",
-   "original_description": "ORIG CO NAME:TURO INC ORIG ID:1907014784 DESC DATE:261026 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:992040491805350 EED:261026 IND ID:19196520 IND NAME:RIVERA JORDAN TRN: 0346842034TC",
-   "merchant_name": null,
-   "pending": false,
-   "category": "INCOME_GIG_ECONOMY"
-  },
-  {
-   "transaction_id": "oMPJMVZPARUNAnLqNj7MhPRPQDgWr5ipzNqqG",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
-   "amount": 8.69,
-   "date": "2026-10-26",
-   "authorized_date": "2026-10-25",
-   "name": "TESLA SUPERCHARGER US",
-   "original_description": "TESLA SUPERCHARGER US",
-   "merchant_name": "Tesla",
-   "pending": false,
-   "category": "GENERAL_SERVICES_AUTOMOTIVE"
-  },
-  {
-   "transaction_id": "zkgakqBg34s6m9zP6854IK4K1vMrNJU3zxNNy",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "4qgDNy9LkkCWDwv3k3nLcgopqZZjyoSJz9moV",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": -192.96,
    "date": "2026-10-26",
    "authorized_date": "2026-10-26",
@@ -631,8 +607,32 @@
    "category": "INCOME_GIG_ECONOMY"
   },
   {
-   "transaction_id": "3y6GygV6mWcV67GkVwqWIkXk8WDeK5tmB9llJ",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "Nk36vaoKjjcByAd1M1l4CqWBa88rgWsydoV36",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
+   "amount": -265.46,
+   "date": "2026-10-26",
+   "authorized_date": "2026-10-26",
+   "name": "ORIG CO NAME:TURO INC ORIG ID:1907014784 DESC DATE:261026 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:992040491805350 EED:261026 IND ID:19196520 IND NAME:RIVERA JORDAN TRN: 0346842034TC",
+   "original_description": "ORIG CO NAME:TURO INC ORIG ID:1907014784 DESC DATE:261026 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:992040491805350 EED:261026 IND ID:19196520 IND NAME:RIVERA JORDAN TRN: 0346842034TC",
+   "merchant_name": null,
+   "pending": false,
+   "category": "INCOME_GIG_ECONOMY"
+  },
+  {
+   "transaction_id": "m1B7d3QyXXULJPWyAyMrUk439rrAJ4cgN9rEA",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
+   "amount": 8.69,
+   "date": "2026-10-26",
+   "authorized_date": "2026-10-25",
+   "name": "TESLA SUPERCHARGER US",
+   "original_description": "TESLA SUPERCHARGER US",
+   "merchant_name": "Tesla",
+   "pending": false,
+   "category": "GENERAL_SERVICES_AUTOMOTIVE"
+  },
+  {
+   "transaction_id": "Pnd6vN8zZZFEWqRKZK9Pi9M6aAAzrMToa8K1l",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": -102.63,
    "date": "2026-10-27",
    "authorized_date": "2026-10-27",
@@ -643,8 +643,8 @@
    "category": "INCOME_SALARY"
   },
   {
-   "transaction_id": "g4zP4Vwz1rsoDQG5oB6gH3a3XrzLbPTLwK88k",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
+   "transaction_id": "ymZyLJGqWWt6elKQ1Qy8hG86l44gj8u4mogG5",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
    "amount": 9.15,
    "date": "2026-10-27",
    "authorized_date": "2026-10-26",
@@ -655,8 +655,8 @@
    "category": "GENERAL_SERVICES_AUTOMOTIVE"
   },
   {
-   "transaction_id": "8l5DlG45zxsDybZKDv5au878o1p6eAiZG9334",
-   "account_id": "rpegpVXebLUgAByzgQ6MTXKMweqyAei7RNywl",
+   "transaction_id": "93gDQyqrMMs8bdKM9MyzHxQ9lrrGXQF41kKrk",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
    "amount": 23.25,
    "date": "2026-10-28",
    "authorized_date": "2026-10-27",
@@ -667,8 +667,8 @@
    "category": "GENERAL_SERVICES_AUTOMOTIVE"
   },
   {
-   "transaction_id": "xApgAVLpzdfDBdx4Do7AuZ9Z1lGPjwfyqD44j",
-   "account_id": "K1M41QwMgeUKARvDKaoGTEgzr8W4N8CRXr686",
+   "transaction_id": "jQKNBrjEmmFMwKWakapgFV1aelld81f6dxQEV",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
    "amount": 1200,
    "date": "2026-10-28",
    "authorized_date": "2026-10-28",
@@ -677,6 +677,66 @@
    "merchant_name": null,
    "pending": false,
    "category": "TRANSFER_OUT_ACCOUNT_TRANSFER"
+  },
+  {
+   "transaction_id": "7zWm7y6q55FQDpJLbL9xtJEqAggVkEidP6wZG",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
+   "amount": 15,
+   "date": "2026-10-31",
+   "authorized_date": "2026-10-31",
+   "name": "MONTHLY SERVICE FEE",
+   "original_description": "MONTHLY SERVICE FEE",
+   "merchant_name": null,
+   "pending": false,
+   "category": "BANK_FEES_OTHER_BANK_FEES"
+  },
+  {
+   "transaction_id": "Qba6wPEBGGiQRwV4Z49jt5LglqqR4LhwXZj1x",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
+   "amount": -389.28,
+   "date": "2026-10-31",
+   "authorized_date": "2026-10-31",
+   "name": "ORIG CO NAME:TURO INC ORIG ID:6200110875 DESC DATE:261031 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:307001537910172 EED:261031 IND ID:71722459 IND NAME:RIVERA JORDAN TRN: 9490452931TC",
+   "original_description": "ORIG CO NAME:TURO INC ORIG ID:6200110875 DESC DATE:261031 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:307001537910172 EED:261031 IND ID:71722459 IND NAME:RIVERA JORDAN TRN: 9490452931TC",
+   "merchant_name": null,
+   "pending": false,
+   "category": "INCOME_GIG_ECONOMY"
+  },
+  {
+   "transaction_id": "eN83ledExxt3ZwERQRv9F4eJbyyQ6eirQJxgj",
+   "account_id": "1XD5d7bZMMtgEbxymyJaFQq7EGWPP4Hp7jxqv",
+   "amount": -188.52,
+   "date": "2026-10-31",
+   "authorized_date": "2026-10-31",
+   "name": "ORIG CO NAME:TURO INC ORIG ID:1005249007 DESC DATE:261031 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:514293092410804 EED:261031 IND ID:05744486 IND NAME:RIVERA JORDAN TRN: 0719646783TC",
+   "original_description": "ORIG CO NAME:TURO INC ORIG ID:1005249007 DESC DATE:261031 CO ENTRY DESCR:PAYOUT SEC:CCD TRACE#:514293092410804 EED:261031 IND ID:05744486 IND NAME:RIVERA JORDAN TRN: 0719646783TC",
+   "merchant_name": null,
+   "pending": false,
+   "category": "INCOME_GIG_ECONOMY"
+  },
+  {
+   "transaction_id": "vG7yZeEXWWtlMLWVnVpgiEJKaggV8JHqmgwpw",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
+   "amount": 23.81,
+   "date": "2026-10-31",
+   "authorized_date": "2026-10-30",
+   "name": "TESLA SUPERCHARGER US",
+   "original_description": "TESLA SUPERCHARGER US",
+   "merchant_name": "Tesla",
+   "pending": false,
+   "category": "GENERAL_SERVICES_AUTOMOTIVE"
+  },
+  {
+   "transaction_id": "Rm46vjW3yytVjgXRwRz7IdM6JKKeGMtaywZ9M",
+   "account_id": "LEz6vxLlNNsgzr7W4WmdFGVzRMKmm7uk8jRev",
+   "amount": 8.91,
+   "date": "2026-11-01",
+   "authorized_date": "2026-10-31",
+   "name": "TESLA SUPERCHARGER US",
+   "original_description": "TESLA SUPERCHARGER US",
+   "merchant_name": "Tesla",
+   "pending": false,
+   "category": "GENERAL_SERVICES_AUTOMOTIVE"
   }
  ]
 }

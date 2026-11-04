@@ -179,11 +179,15 @@ def pull(month_dir, wait: float = SYNC_WAIT, post: Callable[[str, Dict], Dict] =
                 seen[t["transaction_id"]] = t
             for t in page.get("removed", []):
                 seen.pop(t.get("transaction_id"), None)
+            changed = bool(page.get("added") or page.get("modified") or page.get("removed"))
             cursor = page.get("next_cursor", cursor)
             status = page.get("transactions_update_status")
             if page.get("has_more"):
                 continue
-            if status == "HISTORICAL_UPDATE_COMPLETE" or (status is None and seen):
+            # Plaid can mark the history complete on the call that brings only the last 30 days; the older
+            # rows come on the next call (seen Nov 3: Oct 2-3 arrived one call later). So stop at the first
+            # quiet page once the history is complete.
+            if not changed and (status == "HISTORICAL_UPDATE_COMPLETE" or (status is None and seen)):
                 break
             if time.time() > deadline:
                 raise BankFeedError(f"Plaid's test bank was still loading after {wait:.0f} seconds ({status}). Try again.")
