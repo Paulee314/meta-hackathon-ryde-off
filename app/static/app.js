@@ -168,11 +168,26 @@ function openSheet(nodes) {
   s.hidden = false;
   requestAnimationFrame(() => { const t = $('sheetTitle'); if (t) t.focus({ preventScroll: true }); });
 }
+// On a phone the sheet is a cloud: when it closes it pops into little puffs.
+function puffs() {
+  if (wide.matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const r = $('sheet').getBoundingClientRect();
+  for (let i = 0; i < 14; i++) {
+    const p = document.createElement('span');
+    p.className = 'puff';
+    const a = Math.random() * Math.PI * 2, d = 50 + Math.random() * 110;
+    p.style.cssText = `left:${r.left + r.width * (0.08 + 0.84 * Math.random())}px;top:${r.top + 30 + r.height * 0.55 * Math.random()}px;`
+      + `--s:${12 + Math.random() * 26}px;--dx:${(Math.cos(a) * d).toFixed(0)}px;--dy:${(Math.sin(a) * d).toFixed(0)}px`;
+    document.body.append(p);
+    setTimeout(() => p.remove(), 700);
+  }
+}
 function closeSheet() {
   const s = $('sheet');
   answerContext = null;
   if (s.hidden) return;
   s.classList.add('closing');
+  setTimeout(puffs, 90);
   document.body.classList.remove('panel-open');
   markOpen(null);
   setNav('home');
@@ -182,14 +197,14 @@ function closeSheet() {
     s.classList.remove('closing');
     document.querySelectorAll('.bubble.leaving').forEach((b) => b.classList.remove('leaving'));
     if (lastFocus && document.contains(lastFocus)) lastFocus.focus({ preventScroll: true });
-  }, 220);
+  }, wide.matches ? 220 : 330);
 }
 // Ask something from inside a sheet. On a phone the sheet gets out of the way first; on a wide
 // screen the panel stays put and the answer replaces it.
 function askFromSheet(text) {
   if (wide.matches) { ask(text, false); return; }
   closeSheet();
-  setTimeout(() => ask(text, false), 240);
+  setTimeout(() => ask(text, false), 350);   // after the close (330 ms on a phone)
 }
 function sheetError(msg) {
   openSheet([title('That didn’t load'), el('p', { text: msg }),

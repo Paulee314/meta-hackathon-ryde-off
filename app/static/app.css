@@ -413,3 +413,27 @@ body.preload .sidebar, body.preload .app { transition: none !important; }   /* n
 .bank p { margin: 0; }
 .bank-actions { display: flex; flex-direction: column; gap: 10px; }
 .hold-btn { touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+
+/* ---- phones: the sheet is a soft, see-through cloud that pops when it closes (Paul, Nov 4) ---- */
+@media (max-width: 959px) {
+  .sheet {
+    top: max(60px, 9dvh); padding-top: 92px; border-radius: 0;
+    background: rgba(255, 255, 255, 0.8); box-shadow: none;
+    -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3);
+    --puffs: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 430 60' preserveAspectRatio='none'%3E%3Cg fill='%23000'%3E%3Ccircle cx='34' cy='60' r='32'/%3E%3Ccircle cx='100' cy='54' r='44'/%3E%3Ccircle cx='178' cy='58' r='36'/%3E%3Ccircle cx='252' cy='50' r='48'/%3E%3Ccircle cx='330' cy='58' r='38'/%3E%3Ccircle cx='398' cy='56' r='42'/%3E%3Crect y='52' width='430' height='8'/%3E%3C/g%3E%3C/svg%3E");
+    -webkit-mask: var(--puffs) top center / 100% 60px no-repeat, linear-gradient(#000, #000) 0 58px / 100% calc(100% - 58px) no-repeat;
+    mask: var(--puffs) top center / 100% 60px no-repeat, linear-gradient(#000, #000) 0 58px / 100% calc(100% - 58px) no-repeat;
+  }
+  .sheet-close { top: 48px; }
+  .sheet.closing { animation: cloudpop 0.34s cubic-bezier(.3, .7, .4, 1) both; }
+}
+@keyframes cloudpop {
+  0% { transform: translateX(-50%) scale(1); opacity: 1; }
+  30% { transform: translateX(-50%) scale(1.045); opacity: 1; }
+  100% { transform: translateX(-50%) scale(1.16); opacity: 0; }
+}
+.puff { position: fixed; width: var(--s); height: var(--s); border-radius: 50%; pointer-events: none; z-index: 11;
+  background: rgba(255, 255, 255, 0.95); box-shadow: 0 0 14px rgba(255, 140, 198, 0.55); animation: puff 0.6s ease-out forwards; }
+@keyframes puff { from { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+  to { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.15); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .sheet.closing { animation: sink 0.2s ease-in both; } .puff { display: none; } }
