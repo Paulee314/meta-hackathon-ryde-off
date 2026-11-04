@@ -437,3 +437,44 @@ body.preload .sidebar, body.preload .app { transition: none !important; }   /* n
 @keyframes puff { from { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
   to { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.15); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .sheet.closing { animation: sink 0.2s ease-in both; } .puff { display: none; } }
+
+/* ---- the sky: live Houston weather behind everything (app/sky.py) ---- */
+.sky { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.sky .tint { position: absolute; inset: 0; transition: background 1s ease; }
+.sky-chip { font-size: 13px; font-weight: 600; color: var(--ink); background: rgba(255, 255, 255, 0.7);
+  border-radius: 999px; padding: 6px 12px; white-space: nowrap; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.sun { position: absolute; top: -90px; right: -80px; width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, #FFE68F 0 22%, rgba(255, 222, 120, 0.6) 25%, rgba(255, 214, 102, 0) 66%); }
+.sun::before { content: ''; position: absolute; inset: 0; border-radius: 50%;
+  background: repeating-conic-gradient(rgba(255, 226, 130, 0.45) 0 5deg, transparent 5deg 20deg);
+  -webkit-mask: radial-gradient(circle, transparent 27%, #000 29%, transparent 64%); mask: radial-gradient(circle, transparent 27%, #000 29%, transparent 64%);
+  animation: spin 60s linear infinite; }
+body[data-sky='clear'] .sky .tint, body[data-sky='partly'] .sky .tint { background: linear-gradient(200deg, rgba(255, 236, 170, 0.35), transparent 45%); }
+body[data-sky='cloudy'] .sky .tint { background: linear-gradient(180deg, rgba(150, 164, 192, 0.32), transparent 62%); }
+body[data-sky='fog'] .sky .tint { background: linear-gradient(180deg, rgba(236, 239, 246, 0.85), rgba(236, 239, 246, 0.4)); }
+body[data-sky='rain'] .sky .tint, body[data-sky='storm'] .sky .tint { background: linear-gradient(180deg, rgba(86, 98, 136, 0.5), rgba(140, 154, 192, 0.2) 60%, transparent); }
+body[data-sky='snow'] .sky .tint { background: linear-gradient(180deg, rgba(200, 212, 235, 0.45), transparent 65%); }
+body[data-sky='windy'] .sky .tint { background: linear-gradient(200deg, rgba(220, 245, 210, 0.35), transparent 50%); }
+body[data-night='1'] .sky .tint { background: linear-gradient(180deg, rgba(40, 44, 110, 0.6), rgba(80, 88, 165, 0.22) 55%, transparent 85%); }
+.moon { position: absolute; top: 118px; right: 26px; width: 54px; height: 54px; border-radius: 50%;
+  background: radial-gradient(circle at 38% 38%, #FFFBEA, #F6E7B5); box-shadow: 0 0 40px 10px rgba(255, 244, 205, 0.45); }
+.star { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #FFFFFF; animation: twinkle 2.6s ease-in-out infinite; }
+.sky-cloud { position: absolute; left: 0; height: auto; opacity: 0.9; animation: drift linear infinite; }
+.drop { position: absolute; top: -8%; width: 2px; height: 20px; border-radius: 2px;
+  background: linear-gradient(rgba(86, 110, 170, 0), rgba(86, 110, 170, 0.6)); animation: fall linear infinite; }
+.flash { position: absolute; inset: 0; background: #FFFFFF; opacity: 0; animation: flash 7s ease-out infinite; }
+.flake { position: absolute; top: -4%; width: var(--s); height: var(--s); border-radius: 50%; background: #FFFFFF;
+  box-shadow: 0 0 4px rgba(150, 170, 210, 0.6); animation: snow linear infinite; }
+.leaf { position: absolute; left: 0; height: auto; animation: gust ease-in-out infinite; }
+.gust { position: absolute; left: 0; width: 120px; height: 2px; border-radius: 2px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0)); animation: streak linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes twinkle { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+@keyframes drift { from { transform: translateX(-280px); } to { transform: translateX(110vw); } }
+@keyframes fall { from { transform: translateY(0); } to { transform: translateY(112vh); } }
+@keyframes snow { 0% { transform: translate(0, 0); } 50% { transform: translate(18px, 55vh); } 100% { transform: translate(-6px, 110vh); } }
+@keyframes gust { 0% { transform: translate(-40px, 0) rotate(0deg); opacity: 0; } 10% { opacity: 1; }
+  100% { transform: translate(110vw, var(--rise)) rotate(720deg); opacity: 0.9; } }
+@keyframes streak { from { transform: translateX(-140px); opacity: 0; } 20% { opacity: 1; } to { transform: translateX(110vw); opacity: 0; } }
+@keyframes flash { 0%, 92%, 100% { opacity: 0; } 93% { opacity: 0.55; } 95% { opacity: 0.1; } 96% { opacity: 0.45; } }
+@media (prefers-reduced-motion: reduce) { .sky * { animation: none !important; } .drop, .flake, .leaf, .gust, .flash { display: none; } }

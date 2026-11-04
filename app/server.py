@@ -33,7 +33,7 @@ from starlette.concurrency import run_in_threadpool
 from agents.meta import MetaAPIError, transcribe
 from agents.segment import cut_all, find_receipts, read_all
 from agents.voice import KEYWORDS, tidy_transcript
-from app import reports
+from app import reports, sky
 from app import state as st
 from app.assistant import book, explain, handle
 from app.books import Books
@@ -140,6 +140,12 @@ def index():
         stamp = hashlib.sha1((STATIC / name).read_bytes()).hexdigest()[:10]
         html = html.replace(f'/static/{name}"', f'/static/{name}?v={stamp}"')
     return HTMLResponse(html, headers={"Cache-Control": "no-store"})
+
+
+@app.get("/api/sky")
+async def sky_now():
+    """The real weather in Houston, for the sky behind the app (cached 10 minutes)."""
+    return (await run_in_threadpool(sky.now)) or {"state": None}
 
 
 @app.get("/api/home")

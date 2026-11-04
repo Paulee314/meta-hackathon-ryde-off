@@ -981,6 +981,72 @@ document.addEventListener('keydown', (e) => {
   closeSheet();
 });
 
+/* ---------- the sky: the real weather in Houston, behind everything (Paul, Nov 4) ---------- */
+// ?sky=rain (or clear, partly, cloudy, fog, storm, snow, windy; add -night) previews a sky.
+const SKY_ICON = { clear: '☀️', partly: '⛅', cloudy: '☁️', fog: '🌫️', rain: '🌧️', storm: '⛈️', snow: '🌨️', windy: '🍃' };
+const LEAF = 'M12 2C6 6 3 11 4 17c4 1 9-1 12-6 2-3 2-6-4-9zM5 19c3-4 6-7 10-10';
+function skyCloud(cls, tone) {
+  return svgEl('svg', { class: cls, viewBox: '0 0 240 160' }, svgEl('g', { fill: tone },
+    svgEl('circle', { cx: 78, cy: 88, r: 44 }), svgEl('circle', { cx: 126, cy: 62, r: 54 }), svgEl('circle', { cx: 176, cy: 84, r: 42 }),
+    svgEl('circle', { cx: 44, cy: 112, r: 30 }), svgEl('circle', { cx: 204, cy: 112, r: 28 }), svgEl('rect', { x: 40, y: 96, width: 168, height: 46, rx: 23 })));
+}
+function renderSky(s) {
+  const layer = document.querySelector('.sky') || document.body.insertBefore(el('div', { class: 'sky', 'aria-hidden': 'true' }), document.body.firstChild);
+  const kids = [el('div', { class: 'tint' })];
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const st = s.state, night = !!s.night;
+  if (night) {
+    kids.push(el('div', { class: 'moon' }));
+    for (let i = 0; i < 26; i++) kids.push(el('i', { class: 'star', style: `left:${rnd(2, 98)}%;top:${rnd(2, 45)}%;animation-delay:${rnd(0, 3).toFixed(2)}s` }));
+  } else if (st === 'clear' || st === 'partly' || st === 'windy') {
+    kids.push(el('div', { class: 'sun' }));
+  }
+  const gray = st === 'rain' || st === 'storm';
+  const clouds = { clear: 0, partly: 2, windy: 2, cloudy: 4, fog: 3, rain: 4, storm: 4, snow: 3 }[st] || 0;
+  for (let i = 0; i < clouds; i++) {
+    const c = skyCloud('sky-cloud', gray ? (i % 2 ? '#8D97B5' : '#A3ACC7') : (i % 2 ? '#FFFFFF' : '#F1F5FC'));
+    c.style.cssText = `top:${rnd(-4, 30)}%;width:${rnd(150, 260).toFixed(0)}px;animation-duration:${rnd(55, 95).toFixed(0)}s;animation-delay:-${rnd(0, 80).toFixed(0)}s`;
+    kids.push(c);
+  }
+  if (gray) {
+    for (let i = 0; i < 70; i++) kids.push(el('i', { class: 'drop', style: `left:${rnd(0, 100)}%;animation-duration:${rnd(0.6, 1).toFixed(2)}s;animation-delay:-${rnd(0, 1).toFixed(2)}s` }));
+    if (st === 'storm') kids.push(el('div', { class: 'flash' }));
+  }
+  if (st === 'snow') {
+    for (let i = 0; i < 50; i++) kids.push(el('i', { class: 'flake', style: `left:${rnd(0, 100)}%;--s:${rnd(4, 9).toFixed(1)}px;animation-duration:${rnd(6, 12).toFixed(1)}s;animation-delay:-${rnd(0, 12).toFixed(1)}s` }));
+  }
+  if (st === 'windy') {
+    for (let i = 0; i < 14; i++) {
+      const leaf = svgEl('svg', { class: 'leaf', viewBox: '0 0 24 24' }, svgEl('path', { d: LEAF, fill: i % 3 ? '#7BC86C' : '#4FA65A', stroke: '#3C8A47', 'stroke-width': 0.8 }));
+      leaf.style.cssText = `top:${rnd(5, 85)}%;width:${rnd(16, 28).toFixed(0)}px;animation-duration:${rnd(4, 7).toFixed(1)}s;animation-delay:-${rnd(0, 7).toFixed(1)}s;--rise:${rnd(-25, 10).toFixed(0)}vh`;
+      kids.push(leaf);
+    }
+    for (let i = 0; i < 6; i++) kids.push(el('i', { class: 'gust', style: `top:${rnd(10, 80)}%;animation-duration:${rnd(2.5, 4).toFixed(1)}s;animation-delay:-${rnd(0, 4).toFixed(1)}s` }));
+  }
+  layer.replaceChildren(...kids);
+  document.body.dataset.sky = st;
+  document.body.dataset.night = night ? '1' : '';
+  if (s.label) {
+    const chip = $('skyChip');
+    chip.textContent = `${night && (st === 'clear' || st === 'partly') ? '🌙' : SKY_ICON[st] || ''} ${s.place || ''} ${s.temp != null ? s.temp + '°' : ''}`.trim();
+    chip.title = `${s.label}. The sky behind the app follows the live weather.`;
+    chip.setAttribute('aria-label', s.label);
+    chip.hidden = false;
+  }
+}
+async function loadSky() {
+  let s = {};
+  try { s = await api('/api/sky'); } catch (_) { /* keep the usual sky */ }
+  const forced = new URLSearchParams(location.search).get('sky');
+  if (forced) {
+    const [state, when] = forced.split('-');
+    s = { ...s, state, night: when === 'night', label: `Preview: ${state}${when === 'night' ? ' at night' : ''}`, place: s.place || 'Houston' };
+  }
+  if (s && s.state) renderSky(s);
+}
+loadSky();
+setInterval(loadSky, 15 * 60 * 1000);
+
 /* ---------- first visit: say plainly that this is made-up data ---------- */
 const NOTICE_KEY = 'rideoff-notice-1';
 function noticeSeen() {
