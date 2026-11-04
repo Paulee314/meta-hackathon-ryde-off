@@ -666,6 +666,7 @@ let holding = false;
 function micMessage(err) {
   if (err && err.name === 'InsecureContext') return 'The microphone needs a secure page (https). Type instead.';
   if (err && (err.name === 'NotAllowedError' || err.name === 'SecurityError')) return 'Microphone access is off. Allow it in the browser, or type instead.';
+  if (err && err.name === 'Timeout') return 'The microphone didn’t start. Opened from a home-screen icon? Open the link in Safari instead, or type.';
   return 'The microphone didn’t start. Type instead.';
 }
 
@@ -674,7 +675,13 @@ async function startListening() {
   closeTypebar();
   session = { at: performance.now(), ready: rec.start() };
   const mine = session;
-  try { await mine.ready; } catch (err) { session = null; holding = false; toast(micMessage(err)); openTypebar(); return; }
+  showSaid(null, 'Starting the microphone…');
+  // Some home-screen web apps never answer the microphone request; don't leave the cloud stuck waiting.
+  const late = new Promise((_, no) => setTimeout(() => no(Object.assign(new Error('mic timeout'), { name: 'Timeout' })), 6000));
+  try { await Promise.race([mine.ready, late]); } catch (err) {
+    if (session === mine) { session = null; holding = false; rec.cancel(); hideSaid(); toast(micMessage(err)); openTypebar(); }
+    return;
+  }
   if (session !== mine) { rec.cancel(); return; }
   app.classList.add('listening');
   showSaid(null, 'Listening. Let go when you’re done.');
