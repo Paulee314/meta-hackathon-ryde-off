@@ -2,7 +2,7 @@
 
     python3 -m car.rules samples/october
 
-A rule is a few thresholds a driver can say in one sentence: skip pickups over N miles, only fares of at
+A rule is a few thresholds a driver can say in one sentence: skip pickups more than N miles away, only fares of at
 least $X, at least $Y a mile, at least $Z an hour after car costs, only some platforms or hours.
 
 A rule sits on top of the driver's own judgment. The replay first drops the rides the driver took that the
@@ -68,7 +68,7 @@ class Rule:
             return "What you did"
         parts = []
         if self.max_pickup_miles is not None:
-            parts.append(f"skip pickups over {self.max_pickup_miles:g} miles")
+            parts.append(f"skip pickups more than {self.max_pickup_miles:g} miles away")
         if self.min_fare is not None:
             parts.append(f"only fares of ${self.min_fare:g} or more")
         if self.min_fare_per_mile is not None:
@@ -90,8 +90,8 @@ def _clock(hour: int) -> str:
 
 PRESETS = [
     Rule("What you did", as_driven=True),
-    Rule("Skip pickups over 3 miles", max_pickup_miles=3),
-    Rule("Skip pickups over 2 miles", max_pickup_miles=2),
+    Rule("Skip pickups more than 3 miles away", max_pickup_miles=3),
+    Rule("Skip pickups more than 2 miles away", max_pickup_miles=2),
     Rule("At least $1 a mile", min_fare_per_mile=1.0),
     Rule("At least $20 an hour after car costs", min_profit_per_hour=20),
     Rule("Take every offer"),

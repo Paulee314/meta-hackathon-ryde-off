@@ -236,7 +236,7 @@ async function openDetail(id) {
       nodes.push(el('div', { class: 'rule-list' }, d.rules.map((r) =>
         el('button', { type: 'button', class: 'rule-row', onclick: () => askFromSheet(`What if I used this rule: ${r.label}?`) },
           el('span', { text: r.label }), el('b', { class: r.value.startsWith('+') ? 'up' : 'down', text: r.value })))));
-      nodes.push(el('p', { class: 'muted', text: 'Tap a rule to see what it would have done, or say your own: “What if I skip pickups over 4 miles?”' }));
+      nodes.push(el('p', { class: 'muted', text: 'Tap a rule to see what it would have done, or say your own: “What if I skip pickups more than 4 miles away?”' }));
     }
   });
   if (d.note) nodes.push(el('p', { class: 'muted', text: d.note }));
@@ -559,8 +559,56 @@ async function ask(text, spoken) {
   }
 }
 
+/* ---------- talking back: when you speak, the answer is read aloud by the phone's own voice (Paul, Nov 4) ---------- */
+const TALK_KEY = 'rideoff-talk';
+function talkOn() { try { return localStorage.getItem(TALK_KEY) !== 'off'; } catch (_) { return true; } }
+let talkVoice = null;
+function pickVoice() {
+  const vs = speechSynthesis.getVoices().filter((v) => /^en[-_]US/i.test(v.lang));
+  talkVoice = vs.find((v) => /Samantha|Ava|Allison|Zoe|Nicky|Google US English/i.test(v.name)) || vs[0] || null;
+}
+if ('speechSynthesis' in window) { pickVoice(); speechSynthesis.addEventListener('voiceschanged', pickVoice); }
+function quietSpeech() {
+  // Called on every press: stops any answer still being read, and (on an iPhone) lets speech start later.
+  if (!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  if (!quietSpeech.unlocked) { quietSpeech.unlocked = true; const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u); }
+}
+const IOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+function talk(text) {
+  if (!text || !talkOn() || !('speechSynthesis' in window)) return;
+  // An iPhone plays speech quietly through the earpiece while the microphone is open, so close it first.
+  if (IOS && !rec.active) rec.release();
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  if (talkVoice) u.voice = talkVoice;
+  u.rate = 1.04;
+  speechSynthesis.speak(u);
+}
+function talkRow() {
+  const label = () => (talkOn() ? 'Talking back: on' : 'Talking back: off');
+  const b = el('button', { type: 'button', class: 'btn', text: label() });
+  b.addEventListener('click', () => {
+    try { localStorage.setItem(TALK_KEY, talkOn() ? 'off' : 'on'); } catch (_) { /* private mode */ }
+    b.textContent = label();
+    quietSpeech();
+    if (talkOn()) talk('I’ll answer out loud.');
+  });
+  return el('div', { class: 'bank-actions' }, b,
+    el('p', { class: 'muted', text: 'When you talk to the cloud, the answer is read aloud by your phone’s own voice (not a Meta model).' }));
+}
+function spokenReply(res) {
+  const first = (t) => (t || '').split(/(?<=[.!?])\s/)[0];
+  if (res.type === 'logged') return `Got it. ${res.amount} for ${res.title.toLowerCase()}, booked.`;
+  if (res.type === 'choose') return `${res.amount} for ${res.title.toLowerCase()}. Was that for rideshare, Turo, or personal?`;
+  if (res.type === 'question') return res.text;
+  if (res.type === 'rule') return `${res.headline}. ${res.verdict}: ${res.amount}. ${first(res.text)}`;
+  return res.text || res.headline || '';
+}
+
 function showResult(heard, res, spoken) {
   markOpen(null);
+  if (spoken) talk(spokenReply(res));
   const nodes = [
     el('div', { class: 'you-said', text: heard }),
     el('span', { class: 'muted', style: 'align-self:flex-end;margin-top:-10px', text: spoken ? 'Heard by Muse Voice Transcribe' : 'You asked' }),
@@ -596,6 +644,7 @@ function showResult(heard, res, spoken) {
       if (e.button !== 0) return;
       e.preventDefault();
       try { hold.setPointerCapture(e.pointerId); } catch (_) { /* fine */ }
+      quietSpeech();
       answerContext = heard;
       hold.textContent = 'Listening. Let go when you’re done.';
       holding = true;
@@ -808,6 +857,7 @@ async function finishListening(tooShort) {
 cloud.addEventListener('pointerdown', (e) => {
   if (e.button !== 0) return;
   e.preventDefault();
+  quietSpeech();
   try { cloud.setPointerCapture(e.pointerId); } catch (_) { /* fine */ }
   holding = true;
   startListening();
@@ -938,6 +988,8 @@ function openSettings() {
     el('p', { class: 'muted', text: 'Please don’t upload real receipts or say real account details. What you send goes to Meta’s models, and Meta may use it to improve them.' }),
     el('div', { class: 'section-title' }, el('span', { text: 'Meta models doing the work' })),
     rows([['Muse Spark', 'Reads receipts, books cash, answers'], ['Muse Spark Open', 'Sorted the month onto Schedule C lines (open weights)'], ['SAM 3.1', 'Finds each receipt in a photo'], ['Muse Voice Transcribe', 'Hears what you say'], ['Muse Image', 'Made the demo receipts']]),
+    el('div', { class: 'section-title' }, el('span', { text: 'Talking back' })),
+    talkRow(),
     ...bankSection(),
     el('div', { class: 'actions' }, resetBtn),
   ]);

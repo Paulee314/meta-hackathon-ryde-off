@@ -18,8 +18,8 @@ PROMPT = """You are the money copilot inside a phone app for a gig driver. The d
 "{text}"
 
 Today is {today} ({weekday}). The driver either asked about their books, told you about cash they spent, or
-asked what would have happened with a rule for which ride offers to take or skip ("what if I skip pickups over
-3 miles?", "only take rides paying a dollar a mile").
+asked what would have happened with a rule for which ride offers to take or skip ("what if I skip pickups more
+than 3 miles away?", "only take rides paying a dollar a mile").
 
 BOOKS, the only numbers you may use (never invent others):
 {books}
@@ -31,7 +31,7 @@ read it as dollars and cents and say so in "assumption".
 Return only JSON, no prose:
 {{"intent": "log" | "question" | "rule" | "other",
  "rule": null, or for "rule": {{"name": the rule in a few of the driver's words,
-    "max_pickup_miles": number or null, "min_fare": number or null, "min_fare_per_mile": number or null,
+    "max_pickup_miles": number or null (how far away the rider may be when the offer comes in, not the trip's length), "min_fare": number or null, "min_fare_per_mile": number or null,
     "min_profit_per_hour": number or null (only if they mean after car costs), "platforms": ["uber" and/or "lyft"] or null,
     "hours": [first hour, last hour] in 24-hour time or null}},
  "expense": null, or for "log": {{"date": "YYYY-MM-DD" (resolve words like "yesterday" against today),

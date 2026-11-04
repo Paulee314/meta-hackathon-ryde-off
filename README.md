@@ -31,7 +31,7 @@ python3 -m agents.voice                  # Muse Voice Transcribe + Muse Spark tu
 python3 -m agents.categorize             # Muse Spark Open (on Baseten) maps every merchant to a Schedule C line
 python3 -m agents.close                  # tie-out checks, exceptions, and the score against the answer key
 python3 -m car.profit                    # what each ride really paid after car costs
-python3 -m car.rules                     # replays ride rules ("skip pickups over 3 miles") on every offer in the month
+python3 -m car.rules                     # replays ride rules ("skip pickups more than 3 miles away") on every offer in the month
 python3 -m unittest discover tests       # end-to-end checks (offline; model output is replayed from tests/fixtures)
 ```
 
@@ -147,9 +147,9 @@ Nothing is learned on its own. The same merchant can be business one day and per
 
 ## How ride rules work
 
-Drivers trade rules of thumb like "never take a pickup over 3 miles". `car/rules.py` tests one against the driver's own month. The rule sits on top of the driver's judgment: rides the driver took keep their real times and real profit, and the rule drops the ones it would have skipped. In the time that frees, offers the driver passed on that fit the rule are taken if they arrived within 20 minutes of the car being free. Their profit is estimated from the offer card, the month's tip rate and the cost per mile. Hours on the road come from merging offers and rides into stretches (a gap over 30 minutes counts as off), so rules are compared by true profit and by profit per hour on the road. With no rule, the replay gives back the real month exactly.
+Drivers trade rules of thumb like "never take a pickup more than 3 miles away". `car/rules.py` tests one against the driver's own month. The rule sits on top of the driver's judgment: rides the driver took keep their real times and real profit, and the rule drops the ones it would have skipped. In the time that frees, offers the driver passed on that fit the rule are taken if they arrived within 20 minutes of the car being free. Their profit is estimated from the offer card, the month's tip rate and the cost per mile. Hours on the road come from merging offers and rides into stretches (a gap over 30 minutes counts as off), so rules are compared by true profit and by profit per hour on the road. With no rule, the replay gives back the real month exactly.
 
-On the demo month, skipping pickups over 3 miles would have cost $332.58, because those rides paid about the same per hour as the rest. Holding out for $1 a mile would have made $42.45 more. Muse Spark only turns the spoken rule into JSON; every number comes from the replay.
+On the demo month, skipping pickups more than 3 miles away would have cost $332.58, because those rides paid about the same per hour as the rest. Holding out for $1 a mile would have made $42.45 more. Muse Spark only turns the spoken rule into JSON; every number comes from the replay.
 
 `demo/offers_sheet.py` writes the same replay to `demo/ride_offers_october.xlsx` for checking by hand: all 238 synthetic offers, what the driver did, the true profit used, and Take, Skip or Busy under five rules, with the cost assumptions as live inputs.
 

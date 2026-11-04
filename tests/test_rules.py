@@ -55,7 +55,7 @@ class Replay(unittest.TestCase):
     def test_rule_from_spoken_fields(self):
         r = rule_from_dict({"name": "Skip far pickups", "max_pickup_miles": "4", "platforms": ["Uber", "bike"], "hours": [6, 22]})
         self.assertEqual((r.max_pickup_miles, r.platforms, r.hours), (4.0, ["uber"], (6, 22)))
-        self.assertEqual(r.describe(), "Skip pickups over 4 miles, only Uber, only 6 AM to 10 PM")
+        self.assertEqual(r.describe(), "Skip pickups more than 4 miles away, only Uber, only 6 AM to 10 PM")
 
 
 class InTheApp(unittest.TestCase):
